@@ -4,7 +4,7 @@ import React from 'react'
 function App() {
   return (
     <>
-      <div>Hello world</div>
+      <div className='bg-gray-700'>Hello world</div>
     </>
   )
 }
