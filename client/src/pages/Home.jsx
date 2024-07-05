@@ -2,23 +2,27 @@ import React from "react";
 
 function Home() {
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="flex mt-20 w-full min-h-full border-b border-gray-950 justify-between">
-        <div className="flex flex-col justify-center">
-          <div className="ml-16">
-            <h1 className="text-9xl font-serif font-medium">Human</h1>
-            <h1 className="text-8xl font-serif font-medium">
+    <div className="flex h-screen w-full flex-col">
+      <div className="flex mt-10 md:mt-20 w-full min-h-full border-b border-gray-950 justify-between flex-wrap">
+        <div className="flex flex-col justify-center w-full md:w-1/2 text-center md:text-left">
+          <div className="mx-6 md:ml-16">
+            <h1 className="text-5xl md:text-9xl font-serif font-medium">
+              Human
+            </h1>
+            <h1 className="text-4xl md:text-8xl font-serif font-medium">
               stories & ideas
             </h1>
           </div>
-          <p className="ml-16 text-lg mt-12 font-semibold">
+          <p className="mx-6 md:ml-16 text-base md:text-lg mt-6 md:mt-12 font-semibold">
             A place to read, write, and deepen your understanding
           </p>
-          <div className="ml-16 mt-12 bg-black h-10 max-w-36 rounded-full flex items-center justify-center font-sans font-semibold text-xl hover:bg-gray-700">
-            <button className="text-white">Start reading</button>
+          <div className="flex items-center justify-center md:justify-start lg:justify-start">
+            <div className="mb-10 md:ml-16 mt-6 md:mt-12 bg-black h-10 md:w-40 lg:w-40 w-40 md:max-w-36 rounded-full flex items-center justify-center font-sans font-semibold text-base md:text-xl hover:bg-gray-700">
+              <button className="text-white">Start reading</button>
+            </div>
           </div>
         </div>
-        <div className="hidden lg:flex md:flex justify-end items-end ml-auto">
+        <div className="hidden md:flex justify-end items-end ml-auto w-full md:w-1/2 mt-6 md:mt-0">
           <img
             alt="Brand image"
             className="py-5"
