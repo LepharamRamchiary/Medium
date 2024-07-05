@@ -22,7 +22,7 @@ function Header() {
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
                 <div className="hidden md:flex md:gap-5 lg:gap-7 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
                   <a href="/ourstory">Our Story</a>
-                  <a>Membership</a>
+                  <a href="/member">Membership</a>
                   <a>Write</a>
                   <button>Sign in</button>
                 </div>

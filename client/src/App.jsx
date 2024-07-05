@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import OurStory from "./components/OurStory";
 import OurStoryHeader from "./components/OurStoryHeader";
+import MemberShip from "./components/MemberShip";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ourstory" element={<OurStory />} />
+          <Route path="/member" element={<MemberShip />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -21,7 +23,7 @@ function App() {
 
 function HeaderSwitcher() {
   const location = useLocation();
-  return location.pathname === "/ourstory" ? <OurStoryHeader /> : <Header />;
+  return (location.pathname === "/ourstory") || (location.pathname === "/member" ) ? <OurStoryHeader /> : <Header />;
 }
 
 export default App;
