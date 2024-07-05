@@ -10,7 +10,7 @@ function Header() {
               <div className="sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   <a
-                    href="#"
+                    href="/"
                     className=" px-3 py-2 text-4xl font-bold text-black font-serif"
                   >
                     Medium
@@ -21,7 +21,7 @@ function Header() {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
                 <div className="hidden md:flex md:gap-5 lg:gap-7 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
-                  <a>Our Story</a>
+                  <a href="/ourstory">Our Story</a>
                   <a>Membership</a>
                   <a>Write</a>
                   <button>Sign in</button>
