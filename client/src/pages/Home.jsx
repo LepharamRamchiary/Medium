@@ -33,7 +33,7 @@ function Home() {
           />
         </div>
       </div>
-      <div className="flex justify-center items-center mt-6 gap-4 text-gray-600 font-semibold">
+      <div className="flex justify-center items-center my-4 gap-4 text-gray-600 font-semibold">
         <p>Help</p>
         <p>Status</p>
         <p>About</p>
