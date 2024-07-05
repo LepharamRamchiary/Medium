@@ -4,12 +4,12 @@ function Home() {
   return (
     <div className="flex h-screen w-full flex-col">
       <div className="flex mt-10 md:mt-20 w-full min-h-full border-b border-gray-950 justify-between flex-wrap">
-        <div className="flex flex-col justify-center w-full md:w-1/2 text-center md:text-left">
+        <div className="flex flex-col justify-center w-full md:w-3/5 text-center md:text-left">
           <div className="mx-6 md:ml-16">
-            <h1 className="text-5xl md:text-9xl font-serif font-medium">
+            <h1 className="text-5xl md:text-8xl font-serif font-medium">
               Human
             </h1>
-            <h1 className="text-4xl md:text-8xl font-serif font-medium">
+            <h1 className="text-5xl md:text-8xl font-serif font-medium">
               stories & ideas
             </h1>
           </div>
@@ -22,7 +22,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="hidden md:flex justify-end items-end ml-auto w-full md:w-1/2 mt-6 md:mt-0">
+        <div className="hidden md:flex justify-end items-center ml-auto w-full md:w-2/5 mt-6 md:mt-0">
           <img
             alt="Brand image"
             className="py-5"
