@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PiStarThin } from "react-icons/pi";
 
 function MemberShip() {
+  const [bgColor, setBgColor] = useState('bg-white-50'); // Initial background color
+  const colors = ['bg-white-100','bg-red-100','bg-yellow-100', 'bg-blue-100', 'bg-green-100', 'bg-purple-100','bg-pink-100']; 
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentIndex = colors.indexOf(bgColor);
+      const nextIndex = (currentIndex + 1) % colors.length;
+      setBgColor(colors[nextIndex]);
+    }, 6000)
+
+    return () => clearInterval(interval)
+  }, [bgColor, colors]);
+
   return (
     <div className="h-full w-ful">
-      <div className="md:mt-20 mt-40 flex flex-wrap">
-        <div className="flex flex-col md:w-3/5 p-5 md:p-10 md:border-r border-gray-950 border-b">
+      <div className="mt-20 flex flex-wrap">
+        <div className={`flex flex-col md:w-3/5 p-5 md:p-10 md:border-r border-gray-950 border-b ${bgColor}`}>
           <div className="md:my-16 my-10">
             <div className="">
               <h1 className="md:text-8xl text-5xl lg:text-8xl font-serif">
