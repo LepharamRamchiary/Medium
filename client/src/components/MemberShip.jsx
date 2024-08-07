@@ -135,19 +135,64 @@ function MemberShip() {
       </div>
       <div className="">
         <div class="relative">
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-200 to-blue-200">
-            <h2 class="text-4xl font-bold">The First slide</h2>
-            <p class="mt-2">Scroll Down for next slide</p>
+          <div class="sticky top-0 h-screen flex flex-col bg-gradient-to-b from-green-50 to-blue-50">
+            <div className="flex h-screen my-5">
+              <div className="flex">
+                <div className="flex w-2/5 p-6">
+                  <h1 className="text-7xl font-serif flex justify-center items-center">
+                    Why membership?
+                  </h1>
+                </div>
+                <div className="flex w-2/4 flex-col">
+                  <div className="">
+                    <h1 className="text-5xl font-serif">Reward writers</h1>
+                    <p className="mt-3 text-xl">
+                      Your membership directly supports the writers, editors,
+                      curators, and teams who make Medium a vibrant, inclusive
+                      home for human stories. A portion of your membership is
+                      allocated to the writers of the stories you read and
+                      interact with.
+                    </p>
+                  </div>
+                  <div className="mt-10">
+                    <h1 className="text-5xl font-serif">Unlock every story</h1>
+                    <p className="mt-3 text-xl">
+                      Get access to millions of original stories that spark
+                      bright ideas, answer big questions, and fuel bold
+                      ambitions.
+                    </p>
+                  </div>
+                  <div className="mt-10">
+                    <h1 className="text-5xl font-serif">
+                      Enhance your reading experience
+                    </h1>
+                    <p className="mt-3 text-xl">
+                      Immerse yourself in audio stories, read offline wherever
+                      you go, and connect with the Medium community on Mastodon.
+                    </p>
+                  </div>
+                  <div className="mt-10">
+                    <h1 className="text-5xl font-serif">Elevate your writing</h1>
+                    <p className="mt-3 text-xl">
+                      Create and contribute to publications to collaborate with
+                      other writers, create a custom domain for your profile,
+                      and level up your writing with our simple but powerful
+                      publishing tools.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-indigo-800 to-purple-800 text-white">
+          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-blue-50 border-t border-gray-950">
             <h2 class="text-4xl font-bold">The Second slide</h2>
             <p class="mt-2">Scroll Down for next slide</p>
           </div>
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-purple-800 to-pink-800 text-white">
+          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-blue-50 border-t border-gray-950">
             <h2 class="text-4xl font-bold">The Third slide</h2>
             <p class="mt-2">Scroll Down</p>
           </div>
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-200 to-indigo-100 text-black">
+          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-blue-50 border-t border-b border-gray-950">
             <h2 class="text-4xl font-bold">The Fourth slide</h2>
           </div>
         </div>
