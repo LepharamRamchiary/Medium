@@ -135,11 +135,11 @@ function MemberShip() {
       </div>
       <div className="">
         <div class="relative">
-          <div class="sticky top-0 h-screen flex flex-col bg-gradient-to-b from-green-50 to-blue-50">
-            <div className="flex h-screen my-5">
-              <div className="flex">
-                <div className="flex w-2/5 p-6">
-                  <h1 className="text-7xl font-serif flex justify-center items-center">
+          <div class="top-0 flex flex-col bg-gradient-to-b from-green-50 to-blue-50 border-b border-gray-950">
+            <div className="flex my-7">
+              <div className="md:flex flex-wrap">
+                <div className="flex md:w-2/5 p-6">
+                  <h1 className="md:text-7xl font-serif flex md:justify-center items-center">
                     Why membership?
                   </h1>
                 </div>
@@ -183,17 +183,6 @@ function MemberShip() {
                 </div>
               </div>
             </div>
-          </div>
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-blue-50 border-t border-gray-950">
-            <h2 class="text-4xl font-bold">The Second slide</h2>
-            <p class="mt-2">Scroll Down for next slide</p>
-          </div>
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-blue-50 border-t border-gray-950">
-            <h2 class="text-4xl font-bold">The Third slide</h2>
-            <p class="mt-2">Scroll Down</p>
-          </div>
-          <div class="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-blue-50 border-t border-b border-gray-950">
-            <h2 class="text-4xl font-bold">The Fourth slide</h2>
           </div>
         </div>
       </div>
