@@ -138,15 +138,15 @@ function MemberShip() {
           <div class="top-0 flex flex-col bg-gradient-to-b from-green-50 to-blue-50 border-b border-gray-950">
             <div className="flex my-7">
               <div className="md:flex flex-wrap">
-                <div className="flex md:w-2/5 p-6">
-                  <h1 className="md:text-7xl font-serif flex md:justify-center items-center">
+                <div className="flex md:w-2/5 p-6 justify-center">
+                  <h1 className="md:text-7xl text-3xl font-serif flex md:justify-center items-center">
                     Why membership?
                   </h1>
                 </div>
-                <div className="flex w-2/4 flex-col">
+                <div className="flex md:w-2/4 flex-col mx-8">
                   <div className="">
-                    <h1 className="text-5xl font-serif">Reward writers</h1>
-                    <p className="mt-3 text-xl">
+                    <h1 className="md:text-5xl text-xl font-serif">Reward writers</h1>
+                    <p className="mt-3 md:text-xl">
                       Your membership directly supports the writers, editors,
                       curators, and teams who make Medium a vibrant, inclusive
                       home for human stories. A portion of your membership is
@@ -155,25 +155,76 @@ function MemberShip() {
                     </p>
                   </div>
                   <div className="mt-10">
-                    <h1 className="text-5xl font-serif">Unlock every story</h1>
-                    <p className="mt-3 text-xl">
+                    <h1 className="md:text-5xl text-xl font-serif">Unlock every story</h1>
+                    <p className="mt-3 md:text-xl">
                       Get access to millions of original stories that spark
                       bright ideas, answer big questions, and fuel bold
                       ambitions.
                     </p>
                   </div>
                   <div className="mt-10">
-                    <h1 className="text-5xl font-serif">
+                    <h1 className="md:text-5xl text-xl font-serif">
                       Enhance your reading experience
                     </h1>
-                    <p className="mt-3 text-xl">
+                    <p className="mt-3 md:text-xl">
                       Immerse yourself in audio stories, read offline wherever
                       you go, and connect with the Medium community on Mastodon.
                     </p>
                   </div>
                   <div className="mt-10">
-                    <h1 className="text-5xl font-serif">Elevate your writing</h1>
-                    <p className="mt-3 text-xl">
+                    <h1 className="md:text-5xl text-xl font-serif">Elevate your writing</h1>
+                    <p className="mt-3 md:text-xl">
+                      Create and contribute to publications to collaborate with
+                      other writers, create a custom domain for your profile,
+                      and level up your writing with our simple but powerful
+                      publishing tools.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="top-0 flex flex-col bg-gradient-to-b from-green-50 to-blue-50 border-b border-gray-950">
+            <div className="flex my-7">
+              <div className="md:flex flex-wrap">
+                <div className="flex md:w-2/5 p-6 justify-center">
+                  <h1 className="md:text-7xl text-3xl font-serif flex md:justify-center items-center">
+                    Why membership?
+                  </h1>
+                </div>
+                <div className="flex md:w-2/4 flex-col mx-8">
+                  <div className="">
+                    <h1 className="md:text-5xl text-xl font-serif">Reward writers</h1>
+                    <p className="mt-3 md:text-xl">
+                      Your membership directly supports the writers, editors,
+                      curators, and teams who make Medium a vibrant, inclusive
+                      home for human stories. A portion of your membership is
+                      allocated to the writers of the stories you read and
+                      interact with.
+                    </p>
+                  </div>
+                  <div className="mt-10">
+                    <h1 className="md:text-5xl text-xl font-serif">Unlock every story</h1>
+                    <p className="mt-3 md:text-xl">
+                      Get access to millions of original stories that spark
+                      bright ideas, answer big questions, and fuel bold
+                      ambitions.
+                    </p>
+                  </div>
+                  <div className="mt-10">
+                    <h1 className="md:text-5xl text-xl font-serif">
+                      Enhance your reading experience
+                    </h1>
+                    <p className="mt-3 md:text-xl">
+                      Immerse yourself in audio stories, read offline wherever
+                      you go, and connect with the Medium community on Mastodon.
+                    </p>
+                  </div>
+                  <div className="mt-10">
+                    <h1 className="md:text-5xl text-xl font-serif">Elevate your writing</h1>
+                    <p className="mt-3 md:text-xl">
                       Create and contribute to publications to collaborate with
                       other writers, create a custom domain for your profile,
                       and level up your writing with our simple but powerful
