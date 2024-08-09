@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import OurStory from "./components/OurStory";
 import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
+// import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/ourstory" element={<OurStory />} />
           <Route path="/member" element={<MemberShip />} />
+          {/* <Route path="/signup" element={<SignUp />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
