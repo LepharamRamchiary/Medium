@@ -12,8 +12,8 @@ function SignInModal({ isOpen, onClose, title }) {
             <MdOutlineClose />
           </button>
         </div>
-        <div className="flex flex-col h-[500px] justify-center">
-          <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+        <div className="flex flex-col h-[500px] justify-center items-center">
+          <h2 className="text-2xl font-semibold mb-20">{title}</h2>
           <form className="">
             <div className="mb-4">
               <label className="block text-left mb-2">Email:</label>
