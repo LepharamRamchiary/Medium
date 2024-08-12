@@ -4,9 +4,14 @@ import SignInModal from './SignUp';
 
 function Header() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [modelTitle, setModelTitle] = useState("")
 
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  const openModal =(title) => {
+    setModelTitle(title);
+    setModalOpen(true);
+  }
+
+  const closeModel = () => setModalOpen(false);
 
   return (
     <div>
@@ -30,18 +35,20 @@ function Header() {
                 <div className="hidden md:flex md:gap-5 lg:gap-7 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
                   <a href="/ourstory">Our Story</a>
                   <a href="/member">Membership</a>
-                  <button onClick={openModal}>Write</button>
-                  <SignInModal isOpen={isModalOpen} onClose={closeModal} />
-                  <button>Sign in</button>
+                  <button onClick={() => openModal("Create an account to start writing.")}>Write</button>
+                  
+                  <button onClick={() => openModal("Welcome back.")}>Sign in</button>
+                  
                 </div>
                 <div className="flex bg-black h-8 w-auto p-3 md:p-4 lg:p-5 rounded-full items-center justify-center">
-                  <button className="text-white">Get Started</button>
+                  <button className="text-white" onClick={() => openModal("Join Medium.")}>Get Started</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </nav>
+      <SignInModal isOpen={isModalOpen} onClose={closeModel} title={modelTitle} />
     </div>
   );
 }
