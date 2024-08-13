@@ -25,12 +25,24 @@ function App() {
 
 function HeaderSwitcher() {
   const location = useLocation();
-  return location.pathname === "/ourstory" ||
-    location.pathname === "/member" ? (
-    <OurStoryHeader />
-  ) : (
-    <Header />
-  );
+
+  if(location.pathname === "/feed"){
+    return null
+  }
+
+  if(location.pathname === "/ourstory" || location.pathname === "/member"){
+    return <OurStoryHeader />
+  }
+
+  return <Header />
+
+  
+  // return location.pathname === "/ourstory" ||
+  //   location.pathname === "/member" ? (
+  //   <OurStoryHeader />
+  // ) : (
+  //   <Header />
+  // );
 }
 
 export default App;
