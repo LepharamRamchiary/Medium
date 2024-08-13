@@ -3,9 +3,9 @@ import Header from "./components/Header";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import OurStory from "./components/OurStory";
+import Feed from "./components/Feed";
 import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
-// import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/ourstory" element={<OurStory />} />
           <Route path="/member" element={<MemberShip />} />
-          {/* <Route path="/signup" element={<SignUp />} /> */}
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -25,7 +25,12 @@ function App() {
 
 function HeaderSwitcher() {
   const location = useLocation();
-  return (location.pathname === "/ourstory") || (location.pathname === "/member" ) ? <OurStoryHeader /> : <Header />;
+  return location.pathname === "/ourstory" ||
+    location.pathname === "/member" ? (
+    <OurStoryHeader />
+  ) : (
+    <Header />
+  );
 }
 
 export default App;
