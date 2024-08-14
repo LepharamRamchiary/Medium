@@ -1,9 +1,8 @@
 import React from "react";
 
-
 import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
-import avatarImage from "../assets/ang.jpeg"
+import avatarImage from "../assets/ang.jpeg";
 
 function feed() {
   return (
@@ -22,14 +21,24 @@ function feed() {
                       Medium
                     </a>
                   </div>
+                  
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
                   <div className="hidden md:flex md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
-                    <a href="/write" className="flex justify-center items-center gap-2"><TfiWrite  className="text-2xl"/> Write</a>
-                    <GoBell className="text-2xl"/>
-                    <img className="h-10 w-10 rounded-full" src={avatarImage} alt=" avatar iamge" />
+                    <a
+                      href="/write"
+                      className="flex justify-center items-center gap-2"
+                    >
+                      <TfiWrite className="text-2xl" /> Write
+                    </a>
+                    <GoBell className="text-2xl" />
+                    <img
+                      className="h-10 w-10 rounded-full p-1"
+                      src={avatarImage}
+                      alt=" avatar iamge"
+                    />
                   </div>
                 </div>
               </div>
