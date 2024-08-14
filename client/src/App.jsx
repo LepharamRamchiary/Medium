@@ -6,6 +6,7 @@ import OurStory from "./components/OurStory";
 import Feed from "./components/Feed";
 import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
+import Write from "./components/write";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/ourstory" element={<OurStory />} />
           <Route path="/member" element={<MemberShip />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/write" element={<Write />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -26,17 +28,16 @@ function App() {
 function HeaderSwitcher() {
   const location = useLocation();
 
-  if(location.pathname === "/feed"){
-    return null
+  if (location.pathname === "/feed") {
+    return null;
   }
 
-  if(location.pathname === "/ourstory" || location.pathname === "/member"){
-    return <OurStoryHeader />
+  if (location.pathname === "/ourstory" || location.pathname === "/member") {
+    return <OurStoryHeader />;
   }
 
-  return <Header />
+  return <Header />;
 
-  
   // return location.pathname === "/ourstory" ||
   //   location.pathname === "/member" ? (
   //   <OurStoryHeader />

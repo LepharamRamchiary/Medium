@@ -16,7 +16,7 @@ function SignInModal({ isOpen, onClose, title }) {
     e.preventDefault();
 
     // simulate authentication login
-    if(email === "lepah@gmail.com" && password === "12345"){
+    if(email === "lepha@gmail.com" && password === "12345"){
       // Store user data locally
       localStorage.setItem("user", JSON.stringify({email}))
 
