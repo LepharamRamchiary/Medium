@@ -3,6 +3,9 @@ import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import avatarImage from "../assets/ang.jpeg";
+import ContentCard from "./contentCard";
+
+
 
 function Feed() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,7 +47,7 @@ function Feed() {
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between">
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
-              <div className="sm:ml-6 sm:block md:flex md:gap-2">
+              <div className="sm:ml-6 flex sm:block md:flex md:gap-2">
                 <div className="flex space-x-4">
                   <a
                     href="/feed"
@@ -67,16 +70,16 @@ function Feed() {
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
-                <div className="hidden md:flex md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
+                <div className="md:flex md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
                   <a
                     href="/write"
                     className="flex justify-center items-center gap-2"
                   >
                     <TfiWrite className="text-2xl" /> Write
                   </a>
-                  <GoBell className="text-2xl" />
+                  <GoBell className="text-2xl hidden md:block" />
                   <img
-                    className="h-10 w-10 rounded-full p-1"
+                    className="h-10 w-10 rounded-full p-1 hidden md:block"
                     src={avatarImage}
                     alt="avatar image"
                   />
@@ -87,42 +90,49 @@ function Feed() {
         </div>
       </nav>
       <div className="mt-20 px-6">
-        <div className="flex items-center">
+        <div className="flex flex-wrap items-center">
           <div className="flex justify-center items-center flex-1 p-6 border-r border-gray-950">
-            <div className="flex justify-center items-center border-b border-gray-300 p-1">
-              <button
-                onClick={handlePrev}
-                className="text-gray-600 hover:text-gray-900 focus:outline-none"
-              >
-                &lt;
-              </button>
-              <div className="overflow-hidden mx-4 flex flex-grow">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{
-                    transform: `translateX(-${currentIndex * slideWidth}%)`,
-                  }}
+            <div className="flex flex-col">
+              <div className="flex justify-center items-center border-b border-gray-300 p-1">
+                <button
+                  onClick={handlePrev}
+                  className="text-gray-600 hover:text-gray-900 focus:outline-none"
                 >
-                  {titles.map((title, index) => (
-                    <div
-                      key={index}
-                      className="flex-none w-[calc(100%/5)] text-sm"
-                    >
-                      {title}
-                    </div>
-                  ))}
+                  &lt;
+                </button>
+                <div className="overflow-hidden mx-4 flex flex-grow">
+                  <div
+                    className="flex transition-transform duration-500 ease-in-out"
+                    style={{
+                      transform: `translateX(-${currentIndex * slideWidth}%)`,
+                    }}
+                  >
+                    {titles.map((title, index) => (
+                      <div
+                        key={index}
+                        className="flex-none w-[calc(100%/5)] text-sm"
+                      >
+                        {title}
+                      </div>
+                    ))}
+                  </div>
                 </div>
+                <button
+                  onClick={handleNext}
+                  className="text-gray-600 hover:text-gray-900 focus:outline-none"
+                >
+                  &gt;
+                </button>
               </div>
-              <button
-                onClick={handleNext}
-                className="text-gray-600 hover:text-gray-900 focus:outline-none"
-              >
-                &gt;
-              </button>
+              <div className="mt-6">
+                <ContentCard />
+              </div>
             </div>
           </div>
 
-          <div className="flex-1 p-6"> sfjgjkgfksdlfsd</div>
+          <div className="flex-1 p-6">
+            <h1>Lepharam Ramchiary</h1>
+          </div>
         </div>
       </div>
     </div>
