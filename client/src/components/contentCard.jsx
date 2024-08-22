@@ -18,27 +18,31 @@ const IconWithTooltip = ({ icon: Icon, label }) => {
   );
 };
 
-function contentCard() {
+function contentCard({
+  title,
+  description,
+  imageSrc,
+  autherName,
+  autherImage,
+}) {
   return (
     <div className="">
-      <div className="flex w-full items-center gap-3 border-b">
+      <div className="flex w-full items-center gap-3 border-b my-10">
         <div className="w-3/4 mb-3">
           <div className="md:flex md:items-center md:gap-2">
             <img
               className="h-8 w-8 rounded-full"
-              src={avatarImage}
+              src={autherImage}
               alt="avatar"
             />
-            <p>Lepharam Ramchiary</p>
+            <p>{autherName}</p>
           </div>
           <div className="md:mt-3">
             <h1 className="font-serif text-2xl font-semibold capitalize">
-              10 powerful phrases for proactive communication
+              {title}
             </h1>
             <p className="mt-2 font-sans font-semibold text-gray-500">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste,
-              deserunt tenetur est delectus temporibus accusantium atque
-              voluptates veritatis quis dignissimos.
+              {description}
             </p>
           </div>
           <div className="flex justify-between mt-3 cursor-pointer">
@@ -70,7 +74,7 @@ function contentCard() {
           </div>
         </div>
         <div className="w-1/4 mb-3">
-          <img className="h-32 w-48" src={avatarImage} alt="cardImage" />
+          <img className="h-32 w-48" src={imageSrc} alt="cardImage" />
         </div>
       </div>
     </div>

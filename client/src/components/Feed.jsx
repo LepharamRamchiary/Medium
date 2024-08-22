@@ -3,9 +3,12 @@ import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import avatarImage from "../assets/ang.jpeg";
+import recatJS from "../assets/download.png";
+import js from "../assets/images.png";
+import css from "../assets/CSS-1600x900.png";
+import autherImages1 from "../assets/photo.jpg";
+import autherImages2 from "../assets/photo2.jpg";
 import ContentCard from "./contentCard";
-
-
 
 function Feed() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,6 +28,19 @@ function Feed() {
     "HTML",
     // Add more titles as needed
   ];
+
+  const titleCard = ["ReactJS", "JS", "CSS"];
+
+  const autherNames = ["Lepharam Chiary", "Rekha Bty", "Esha Up"];
+  const autherImages = [avatarImage, autherImages1, autherImages2];
+
+  const descriptions = [
+    "Learn about React Hooks and how to use them effectively.",
+    "Deep dive into JavaScript concepts and best practices.",
+    "Master the art of styling with CSS.",
+  ];
+
+  const images = [recatJS, js, css];
 
   const titlesToShow = 5; // Number of titles to show at once
   const slideWidth = 100 / titlesToShow; // Percentage width for each slide
@@ -125,7 +141,16 @@ function Feed() {
                 </button>
               </div>
               <div className="mt-6">
-                <ContentCard />
+                {titleCard.map((title, index) => (
+                  <ContentCard
+                    key={index}
+                    title={title}
+                    description={descriptions[index]}
+                    imageSrc={images[index]}
+                    autherName={autherNames[index]}
+                    autherImage={autherImages[index]}
+                  />
+                ))}
               </div>
             </div>
           </div>
