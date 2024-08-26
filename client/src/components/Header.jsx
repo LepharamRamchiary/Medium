@@ -1,17 +1,31 @@
-import { useState } from 'react';
+import { useState, useContext } from "react";
 import React from "react";
-import SignInModal from './SignUp'; 
+import SignInModal from "./SignUp";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [modelTitle, setModelTitle] = useState("")
+  const [modelTitle, setModelTitle] = useState("");
+  const [redirectPath, setRedirectPath] = useState("");
 
-  const openModal =(title) => {
+  const openModal = (title, path) => {
     setModelTitle(title);
+    setRedirectPath(path);
     setModalOpen(true);
-  }
+  };
 
   const closeModel = () => setModalOpen(false);
+
+  const handleButtonClick = (path, title) => {
+    if (isAuthenticated) {
+      navigate(path);
+    } else {
+      openModal(title, path);
+    }
+  };
 
   return (
     <div>
@@ -35,20 +49,42 @@ function Header() {
                 <div className="hidden md:flex md:gap-5 lg:gap-7 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
                   <a href="/ourstory">Our Story</a>
                   <a href="/member">Membership</a>
-                  <button onClick={() => openModal("Create an account to start writing.")}>Write</button>
-                  
-                  <button onClick={() => openModal("Welcome back.")}>Sign in</button>
-                  
+                  <button
+                    onClick={() =>
+                      handleButtonClick(
+                        "/write",
+                        "Create an account to start writing."
+                      )
+                    }
+                  >
+                    Write
+                  </button>
+
+                  <button
+                    onClick={() => handleButtonClick("/feed", "Welcome Back")}
+                  >
+                    Sign in
+                  </button>
                 </div>
                 <div className="flex bg-black h-8 w-auto p-3 md:p-4 lg:p-5 rounded-full items-center justify-center">
-                  <button className="text-white" onClick={() => openModal("Join Medium.")}>Get Started</button>
+                  <button
+                    className="text-white"
+                    onClick={() => handleButtonClick("/get-started", "Join Medium.")}
+                  >
+                    Get Started
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </nav>
-      <SignInModal isOpen={isModalOpen} onClose={closeModel} title={modelTitle} />
+      <SignInModal
+        isOpen={isModalOpen}
+        onClose={closeModel}
+        title={modelTitle}
+        redirectPath={redirectPath}
+      />
     </div>
   );
 }

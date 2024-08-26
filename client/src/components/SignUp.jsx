@@ -3,39 +3,34 @@ import { MdOutlineClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-function SignInModal({ isOpen, onClose, title }) {
+function SignInModal({ isOpen, onClose, title, redirectPath }) {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // state to hold form input value
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // simulate authentication login
-    if(email === "lepha@gmail.com" && password === "12345"){
+    if (email === "lepha@gmail.com" && password === "12345") {
       // Store user data locally
-      localStorage.setItem("user", JSON.stringify({email}))
+      localStorage.setItem("user", JSON.stringify({ email }));
 
       // update authentaication status
-      setIsAuthenticated(true)
+      setIsAuthenticated(true);
 
-      navigate("/feed")
+      navigate(redirectPath || "/feed");
     } else {
-      alert("Invalid credentials")
+      alert("Invalid credentials");
     }
-  }
-
-  // loggout handler 
-  const handleLogout = () => {
-    
-  }
+  };
 
   if (isAuthenticated) {
-    navigate("/feed");
+    navigate(redirectPath || "/feed");
     return null;
   }
 
