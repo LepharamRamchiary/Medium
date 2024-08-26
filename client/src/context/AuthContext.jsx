@@ -6,8 +6,13 @@ export const AuthProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+    const logout = () => {
+        localStorage.removeItem("user");
+        setIsAuthenticated(false);
+      };
+
     return (
-        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
+        <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated , logout}}>
             {children}
         </AuthContext.Provider>
     )

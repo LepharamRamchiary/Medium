@@ -29,6 +29,11 @@ function SignInModal({ isOpen, onClose, title }) {
     }
   }
 
+  // loggout handler 
+  const handleLogout = () => {
+    
+  }
+
   if (isAuthenticated) {
     navigate("/feed");
     return null;

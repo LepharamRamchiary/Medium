@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
@@ -9,9 +9,14 @@ import css from "../assets/CSS-1600x900.png";
 import autherImages1 from "../assets/photo.jpg";
 import autherImages2 from "../assets/photo2.jpg";
 import ContentCard from "./contentCard";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Feed() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const titles = [
     "React Hooks",
@@ -57,6 +62,24 @@ function Feed() {
     );
   };
 
+  const handleLoggout = () => {
+    logout();
+    navigate("/");
+  };
+
+  let hoverTimeout;
+
+  const handleMouseEnter = () => {
+    clearTimeout(hoverTimeout);
+    setIsAvatarHoverd(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeout = setTimeout(() => {
+      setIsAvatarHoverd(false);
+    }, 3000);
+  };
+
   return (
     <div className="relative">
       <nav className="fixed top-0 w-full z-50 shadow bg-gray-100 border-b border-gray-950">
@@ -94,11 +117,27 @@ function Feed() {
                     <TfiWrite className="text-2xl" /> Write
                   </a>
                   <GoBell className="text-2xl hidden md:block" />
-                  <img
-                    className="h-10 w-10 rounded-full p-1 hidden md:block"
-                    src={avatarImage}
-                    alt="avatar image"
-                  />
+                  <div
+                    className="relative"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <img
+                      className="h-10 w-10 rounded-full p-1 hidden md:block"
+                      src={avatarImage}
+                      alt="avatar image"
+                    />
+                    {isAvatarHoverd && (
+                      <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md w-20 flex text-center">
+                        <button
+                          onClick={handleLoggout}
+                          className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
