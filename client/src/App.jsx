@@ -31,6 +31,9 @@ function HeaderSwitcher() {
   if (location.pathname === "/feed") {
     return null;
   }
+  if (location.pathname === "/write") {
+    return null;
+  }
 
   if (location.pathname === "/ourstory" || location.pathname === "/member") {
     return <OurStoryHeader />;
