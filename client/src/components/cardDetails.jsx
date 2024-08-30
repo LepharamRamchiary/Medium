@@ -5,6 +5,24 @@ import { CiSearch } from "react-icons/ci";
 import avatarImage from "../assets/ang.jpeg";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import CurrentDate from "./CurrentDate";
+import { PiHandsClappingLight } from "react-icons/pi";
+import { FaComment } from "react-icons/fa";
+import { TbBookmarkPlus } from "react-icons/tb";
+import { IoIosMore } from "react-icons/io";
+import { IoPlayCircleOutline } from "react-icons/io5";
+import { IoShareOutline } from "react-icons/io5";
+
+const IconWithTooltip = ({ icon: Icon, label }) => {
+  return (
+    <div className="relative flex items-start group">
+      <Icon className="text-2xl text-gray-500 hover:text-gray-950" />
+      <span className="absolute p-2 bottom-full mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap max-w-xs">
+        {label}
+      </span>
+    </div>
+  );
+};
 
 function cardDetails() {
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
@@ -92,6 +110,88 @@ function cardDetails() {
           </div>
         </div>
       </nav>
+      <div className="w-full min-h-screen mt-20">
+        <div className="max-w-3xl mx-auto">
+          <div className="">
+            <h1 className="md:text-4xl font-semibold font-serif">Title</h1>
+            <div className="mt-2 flex items-center gap-5">
+              <img
+                className="h-10 w-10 rounded-full"
+                src={avatarImage}
+                alt="avatar"
+              />
+              <div>
+                <div className="flex gap-2 items-center text-sm">
+                  <p>Lepharam Ramxhiaty</p>
+                  <span className="relative">
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <span className="w-0.5 h-0.5 bg-black rounded-full">
+                        .
+                      </span>
+                    </span>
+                  </span>
+                  <button className="text-red-300">Follow</button>
+                </div>
+                <div className="flex gap-2 items-center text-sm">
+                  <p>Published in Coding at Dawn</p>
+                  <span className="relative">
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <span className="w-0.5 h-0.5 bg-black rounded-full">
+                        .
+                      </span>
+                    </span>
+                  </span>
+                  <p>2 min read</p>{" "}
+                  <span className="relative">
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <span className="w-0.5 h-0.5 bg-black rounded-full">
+                        .
+                      </span>
+                    </span>
+                  </span>
+                  <p>
+                    <CurrentDate />
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="my-9 py-3 px-4 border-t border-b flex justify-between">
+              <div className="flex gap-3">
+                <p className="flex items-center gap-1 text-gray-500">
+                  <IconWithTooltip icon={PiHandsClappingLight} label="Clab" />
+                  20
+                </p>
+                <p className="flex items-center gap-1 text-gray-500">
+                  <IconWithTooltip icon={FaComment} label="comment" />
+                  20
+                </p>
+              </div>
+              <div className="flex gap-3 justify-center items-center">
+                <p className="flex items-center text-xl text-gray-500">
+                  <IconWithTooltip icon={TbBookmarkPlus} label="Save" />
+                </p>
+                <p className="flex items-center text-xl text-gray-500">
+                  <IconWithTooltip icon={IoPlayCircleOutline} label="Listen" />
+                </p>
+                <p className="flex items-center text-xl text-gray-500">
+                  <IconWithTooltip icon={IoShareOutline} label="Share" />
+                </p>
+                <p className="flex items-center text-xl text-gray-500">
+                  <IconWithTooltip icon={IoIosMore} label="More" />
+                </p>
+              </div>
+            </div>
+            <div className="">
+              <p>
+                <img className="h-[400px] w-full" src={avatarImage} alt="" />
+              </p>
+            </div>
+            <div className="my-9">
+              <p className="text-xl">dec</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
