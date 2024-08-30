@@ -6,6 +6,7 @@ import { CiCircleMinus } from "react-icons/ci";
 import { TbBookmarkPlus } from "react-icons/tb";
 import { IoIosMore } from "react-icons/io";
 import CurrentDate from "./CurrentDate";
+import { Link } from "react-router-dom";
 
 const IconWithTooltip = ({ icon: Icon, label }) => {
   return (
@@ -38,12 +39,14 @@ function contentCard({
             <p>{autherName}</p>
           </div>
           <div className="md:mt-3">
+            <Link to ="/card-details">
             <h1 className="font-serif text-2xl font-semibold capitalize">
               {title}
             </h1>
             <p className="mt-2 font-sans font-semibold text-gray-500">
               {description}
             </p>
+            </Link>
           </div>
           <div className="flex justify-between mt-3 cursor-pointer">
             <div className="flex gap-4 items-center text-gray-500">

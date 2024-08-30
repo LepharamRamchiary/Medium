@@ -7,6 +7,7 @@ import Feed from "./components/Feed";
 import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
 import Write from "./components/write";
+import CardDetails from "./components/cardDetails";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/member" element={<MemberShip />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/write" element={<Write />} />
+          <Route path="/card-details" element={<CardDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -32,6 +34,9 @@ function HeaderSwitcher() {
     return null;
   }
   if (location.pathname === "/write") {
+    return null;
+  }
+  if (location.pathname === "/card-details") {
     return null;
   }
 
