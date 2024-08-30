@@ -12,6 +12,8 @@ import { TbBookmarkPlus } from "react-icons/tb";
 import { IoIosMore } from "react-icons/io";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoShareOutline } from "react-icons/io5";
+import { useParams } from "react-router-dom";
+import { cardData } from "./cardData";
 
 const IconWithTooltip = ({ icon: Icon, label }) => {
   return (
@@ -28,6 +30,14 @@ function cardDetails() {
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { id } = useParams();
+  const card = cardData.find((item) => item.id === parseInt(id));
+
+  console.log(card);
+  if(!card){
+    return <div>Card not found</div>
+  }
+  
 
   const handleLoggout = () => {
     logout();
@@ -113,7 +123,7 @@ function cardDetails() {
       <div className="w-full min-h-screen mt-20">
         <div className="md:max-w-3xl px-5 md:px-0 text-xl mx-auto">
           <div className="">
-            <h1 className="md:text-4xl font-semibold font-serif">Title</h1>
+            <h1 className="md:text-4xl font-semibold font-serif">{card.title}</h1>
             <div className="mt-2 flex flex-col md:flex-row md:items-center gap-2 md:gap-5">
               <img
                 className="md:h-10 md:w-10 h-8 w-8 rounded-full"
@@ -122,7 +132,7 @@ function cardDetails() {
               />
               <div>
                 <div className="flex md:gap-2 gap-1 items-center text-xs md:text-sm">
-                  <p>Lepharam Ramxhiaty</p>
+                  <p>{card.name}</p>
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
                       <span className="w-0.5 h-0.5 bg-black rounded-full">
@@ -183,11 +193,15 @@ function cardDetails() {
             </div>
             <div className="">
               <p>
-                <img className="md:h-[400px] h-[200px] w-full" src={avatarImage} alt="" />
+                <img
+                  className="md:h-[400px] h-[200px] w-full"
+                  src={avatarImage}
+                  alt=""
+                />
               </p>
             </div>
             <div className="my-9">
-              <p className="md:text-xl text-sm">dec</p>
+              <p className="md:text-xl text-sm">{card.description}</p>
             </div>
           </div>
         </div>

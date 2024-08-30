@@ -20,6 +20,7 @@ const IconWithTooltip = ({ icon: Icon, label }) => {
 };
 
 function contentCard({
+  id,
   title,
   description,
   imageSrc,
@@ -39,7 +40,7 @@ function contentCard({
             <p>{autherName}</p>
           </div>
           <div className="md:mt-3">
-            <Link to ="/card-details">
+            <Link to ={`/card-details/${id}`}>
             <h1 className="font-serif text-2xl font-semibold capitalize">
               {title}
             </h1>

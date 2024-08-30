@@ -8,6 +8,8 @@ import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
 import Write from "./components/write";
 import CardDetails from "./components/cardDetails";
+import { cardData } from "./components/cardData";
+import ContentCard from "./components/contentCard";
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
           <Route path="/member" element={<MemberShip />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/write" element={<Write />} />
-          <Route path="/card-details" element={<CardDetails />} />
+          <Route path="/card-details/:id" element={<CardDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -36,7 +38,7 @@ function HeaderSwitcher() {
   if (location.pathname === "/write") {
     return null;
   }
-  if (location.pathname === "/card-details") {
+  if (location.pathname === "/card-details/:id") {
     return null;
   }
 
@@ -52,6 +54,23 @@ function HeaderSwitcher() {
   // ) : (
   //   <Header />
   // );
+}
+
+function ContentCardList() {
+  return (
+    <div>
+      {cardData.map((card) => (
+        <ContentCard
+          key={card.id}
+          id={card.id}
+          title={card.title}
+          description={card.description}
+          autherName={card.name}
+          autherImage={card.image || "defaultImagePath"} // Use default image path if needed
+        />
+      ))}
+    </div>
+  );
 }
 
 export default App;
