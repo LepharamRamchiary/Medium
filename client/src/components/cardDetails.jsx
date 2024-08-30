@@ -16,7 +16,7 @@ import { IoShareOutline } from "react-icons/io5";
 const IconWithTooltip = ({ icon: Icon, label }) => {
   return (
     <div className="relative flex items-start group">
-      <Icon className="text-2xl text-gray-500 hover:text-gray-950" />
+      <Icon className="md:text-2xl text-gray-500 hover:text-gray-950" />
       <span className="absolute p-2 bottom-full mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap max-w-xs">
         {label}
       </span>
@@ -75,7 +75,7 @@ function cardDetails() {
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
-                <div className="md:flex md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
+                <div className="md:flex hidden md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
                   <a
                     href="/write"
                     className="flex justify-center items-center gap-2"
@@ -111,17 +111,17 @@ function cardDetails() {
         </div>
       </nav>
       <div className="w-full min-h-screen mt-20">
-        <div className="max-w-3xl mx-auto">
+        <div className="md:max-w-3xl px-5 md:px-0 text-xl mx-auto">
           <div className="">
             <h1 className="md:text-4xl font-semibold font-serif">Title</h1>
-            <div className="mt-2 flex items-center gap-5">
+            <div className="mt-2 flex flex-col md:flex-row md:items-center gap-2 md:gap-5">
               <img
-                className="h-10 w-10 rounded-full"
+                className="md:h-10 md:w-10 h-8 w-8 rounded-full"
                 src={avatarImage}
                 alt="avatar"
               />
               <div>
-                <div className="flex gap-2 items-center text-sm">
+                <div className="flex md:gap-2 gap-1 items-center text-xs md:text-sm">
                   <p>Lepharam Ramxhiaty</p>
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
@@ -132,7 +132,7 @@ function cardDetails() {
                   </span>
                   <button className="text-red-300">Follow</button>
                 </div>
-                <div className="flex gap-2 items-center text-sm">
+                <div className="flex md:gap-2 gap-1 items-center md:text-sm text-xs">
                   <p>Published in Coding at Dawn</p>
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
@@ -155,7 +155,7 @@ function cardDetails() {
                 </div>
               </div>
             </div>
-            <div className="my-9 py-3 px-4 border-t border-b flex justify-between">
+            <div className="my-9 md:py-3 md:px-4 py-2 px-2 border-t border-b flex justify-between">
               <div className="flex gap-3">
                 <p className="flex items-center gap-1 text-gray-500">
                   <IconWithTooltip icon={PiHandsClappingLight} label="Clab" />
@@ -183,11 +183,11 @@ function cardDetails() {
             </div>
             <div className="">
               <p>
-                <img className="h-[400px] w-full" src={avatarImage} alt="" />
+                <img className="md:h-[400px] h-[200px] w-full" src={avatarImage} alt="" />
               </p>
             </div>
             <div className="my-9">
-              <p className="text-xl">dec</p>
+              <p className="md:text-xl text-sm">dec</p>
             </div>
           </div>
         </div>
