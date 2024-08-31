@@ -44,7 +44,7 @@ function contentCard({
               <h1 className="font-serif text-2xl font-semibold capitalize">
                 {title}
               </h1>
-              <p className="mt-2 font-sans font-semibold text-gray-500">
+              <p className="mt-2 line-clamp-2 font-sans font-semibold text-gray-500">
                 {description}
               </p>
             </Link>

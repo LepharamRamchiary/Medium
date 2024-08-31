@@ -22,5 +22,21 @@ export const cardData = [
       imageSrc: scren1,
       autherImage: avatar2, 
     },
+    {
+      id: 3,
+      name: "John Wagen",
+      title: " React Hooks",
+      description: "Explore the basics of React Hooks and how they can simplify state management in functional components. You can import images in the way you described, but you should modify the cardData object to properly use the imported image variables. In your current approach, you're using curly braces around the image variables, which isn't necessary. Instead, use the variables directly.",
+      imageSrc: scren1,
+      autherImage: avatar1, 
+    },
+    {
+      id: 4,
+      name: "Manash Wary",
+      title: "Css",
+      description: "Explore the basics of React Hooks and how they can simplify state management in functional components. You don't need to change much here since ContentCard already accepts props for id, title, description, imageSrc, autherName, and autherImage. Make sure it's correctly using these props.",
+      imageSrc: scren1,
+      autherImage: avatar2, 
+    },
   ];
   
