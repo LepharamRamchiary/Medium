@@ -14,6 +14,9 @@ import { IoPlayCircleOutline } from "react-icons/io5";
 import { IoShareOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { cardData } from "./cardData";
+import { calculateReadingTime } from "../utils/readingTime";
+import { formatReadingTime } from "../utils/formatReadingTime";
+import { formatDate } from "../utils/formatDate";
 
 const IconWithTooltip = ({ icon: Icon, label }) => {
   return (
@@ -38,7 +41,10 @@ function cardDetails() {
     return <div>Card not found</div>;
   }
 
-  const { title, description, imageSrc, autherName, autherImage } = card;
+  const { title, description, imageSrc, autherName, autherImage,publicationDate } = card;
+  const readingTime = calculateReadingTime(description);
+  const formattedReadingTime = formatReadingTime(readingTime);
+  const formattedDate = publicationDate ? formatDate(publicationDate) : 'Unknown date';
 
   const handleLoggout = () => {
     logout();
@@ -152,7 +158,7 @@ function cardDetails() {
                       </span>
                     </span>
                   </span>
-                  <p>2 min read</p>{" "}
+                  <p>{formattedReadingTime}</p>{" "}
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
                       <span className="w-0.5 h-0.5 bg-black rounded-full">
@@ -161,7 +167,7 @@ function cardDetails() {
                     </span>
                   </span>
                   <p>
-                    <CurrentDate />
+                    {formattedDate}
                   </p>
                 </div>
               </div>

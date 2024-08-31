@@ -1,5 +1,4 @@
 import React from "react";
-import avatarImage from "../assets/ang.jpeg";
 import { PiHandsClappingLight } from "react-icons/pi";
 import { FaComment } from "react-icons/fa";
 import { CiCircleMinus } from "react-icons/ci";
