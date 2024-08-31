@@ -176,8 +176,9 @@ function Feed() {
                     title={item.title}
                     description={item.description}
                     imageSrc={item.imageSrc}
-                    autherName={item.name}
+                    autherName={item.autherName}
                     autherImage={item.autherImage}
+                    publicationDate={item.publicationDate}
                   />
                 ))}
               </div>

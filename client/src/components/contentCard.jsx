@@ -6,6 +6,8 @@ import { TbBookmarkPlus } from "react-icons/tb";
 import { IoIosMore } from "react-icons/io";
 import CurrentDate from "./CurrentDate";
 import { Link } from "react-router-dom";
+import { cardData } from "./cardData";
+import { formatDate } from "../utils/formatDate";
 
 const IconWithTooltip = ({ icon: Icon, label }) => {
   return (
@@ -25,7 +27,14 @@ function contentCard({
   imageSrc,
   autherName,
   autherImage,
+  publicationDate
 }) {
+  
+
+  const formattedDate = publicationDate
+    ? formatDate(publicationDate)
+    : "Unknown date";
+
   return (
     <div className="">
       <div className="flex w-full items-center gap-3 border-b my-10">
@@ -50,9 +59,7 @@ function contentCard({
           </div>
           <div className="flex justify-between mt-3 cursor-pointer">
             <div className="flex gap-4 items-center text-gray-500">
-              <p>
-                <CurrentDate />
-              </p>
+              <p>{formattedDate}</p>
               <p className="flex items-center gap-1">
                 <PiHandsClappingLight className="text-xl" /> 20
               </p>
