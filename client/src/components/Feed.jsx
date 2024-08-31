@@ -75,7 +75,7 @@ function Feed() {
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between">
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
-              <div className="sm:ml-6 flex sm:block md:flex md:gap-2">
+              <div className="sm:ml-6  flex sm:block md:flex md:gap-2">
                 <div className="flex space-x-4">
                   <a
                     href="/feed"
@@ -98,7 +98,7 @@ function Feed() {
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
-                <div className="md:flex md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
+                <div className="md:flex hidden md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
                   <a
                     href="/write"
                     className="flex justify-center items-center gap-2"
@@ -133,11 +133,11 @@ function Feed() {
           </div>
         </div>
       </nav>
-      <div className="mt-20 px-6">
-        <div className="flex flex-wrap items-center">
-          <div className="flex justify-center items-center flex-1 p-6 border-r border-gray-950">
+      <div className="mt-20 md:px-6">
+        <div className="md:flex flex-wrap items-center">
+          <div className="flex justify-center items-center flex-1 md:p-6 border-0 md:border-r md:border-gray-950">
             <div className="flex flex-col">
-              <div className="flex justify-center items-center border-b border-gray-300 p-1">
+              <div className="md:flex hidden justify-center items-center border-b border-gray-300 p-1">
                 <button
                   onClick={handlePrev}
                   className="text-gray-600 hover:text-gray-900 focus:outline-none"
@@ -168,7 +168,7 @@ function Feed() {
                   &gt;
                 </button>
               </div>
-              <div className="mt-6">
+              <div className="md:mt-6 mt-0">
                 {cardData.map((item) => (
                   <ContentCard
                     key={item.id}
