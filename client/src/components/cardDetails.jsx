@@ -34,10 +34,11 @@ function cardDetails() {
   const card = cardData.find((item) => item.id === parseInt(id));
 
   console.log(card);
-  if(!card){
-    return <div>Card not found</div>
+  if (!card) {
+    return <div>Card not found</div>;
   }
-  
+
+  const { title, description, imageSrc, autherName, autherImage } = card;
 
   const handleLoggout = () => {
     logout();
@@ -123,16 +124,16 @@ function cardDetails() {
       <div className="w-full min-h-screen mt-20">
         <div className="md:max-w-3xl px-5 md:px-0 text-xl mx-auto">
           <div className="">
-            <h1 className="md:text-4xl font-semibold font-serif">{card.title}</h1>
+            <h1 className="md:text-4xl font-semibold font-serif">{title}</h1>
             <div className="mt-2 flex flex-col md:flex-row md:items-center gap-2 md:gap-5">
               <img
                 className="md:h-10 md:w-10 h-8 w-8 rounded-full"
-                src={avatarImage}
+                src={autherImage}
                 alt="avatar"
               />
               <div>
                 <div className="flex md:gap-2 gap-1 items-center text-xs md:text-sm">
-                  <p>{card.name}</p>
+                  <p>{autherName}</p>
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
                       <span className="w-0.5 h-0.5 bg-black rounded-full">
@@ -195,13 +196,13 @@ function cardDetails() {
               <p>
                 <img
                   className="md:h-[400px] h-[200px] w-full"
-                  src={avatarImage}
+                  src={imageSrc}
                   alt=""
                 />
               </p>
             </div>
             <div className="my-9">
-              <p className="md:text-xl text-sm">{card.description}</p>
+              <p className="md:text-xl text-sm">{description}</p>
             </div>
           </div>
         </div>

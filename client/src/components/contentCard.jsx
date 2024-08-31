@@ -40,13 +40,13 @@ function contentCard({
             <p>{autherName}</p>
           </div>
           <div className="md:mt-3">
-            <Link to ={`/card-details/${id}`}>
-            <h1 className="font-serif text-2xl font-semibold capitalize">
-              {title}
-            </h1>
-            <p className="mt-2 font-sans font-semibold text-gray-500">
-              {description}
-            </p>
+            <Link to={`/card-details/${id}`}>
+              <h1 className="font-serif text-2xl font-semibold capitalize">
+                {title}
+              </h1>
+              <p className="mt-2 font-sans font-semibold text-gray-500">
+                {description}
+              </p>
             </Link>
           </div>
           <div className="flex justify-between mt-3 cursor-pointer">

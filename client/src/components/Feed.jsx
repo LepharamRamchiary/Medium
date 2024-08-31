@@ -11,6 +11,7 @@ import autherImages2 from "../assets/photo2.jpg";
 import ContentCard from "./contentCard";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { cardData } from "./cardData";
 
 function Feed() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,18 +35,6 @@ function Feed() {
     // Add more titles as needed
   ];
 
-  const titleCard = ["ReactJS", "JS", "CSS"];
-
-  const autherNames = ["Lepharam Chiary", "Rekha Bty", "Esha Up"];
-  const autherImages = [avatarImage, autherImages1, autherImages2];
-
-  const descriptions = [
-    "Learn about React Hooks and how to use them effectively.",
-    "Deep dive into JavaScript concepts and best practices.",
-    "Master the art of styling with CSS.",
-  ];
-
-  const images = [recatJS, js, css];
 
   const titlesToShow = 5; // Number of titles to show at once
   const slideWidth = 100 / titlesToShow; // Percentage width for each slide
@@ -180,14 +169,15 @@ function Feed() {
                 </button>
               </div>
               <div className="mt-6">
-                {titleCard.map((title, index) => (
+                {cardData.map((item) => (
                   <ContentCard
-                    key={index}
-                    title={title}
-                    description={descriptions[index]}
-                    imageSrc={images[index]}
-                    autherName={autherNames[index]}
-                    autherImage={autherImages[index]}
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    description={item.description}
+                    imageSrc={item.imageSrc}
+                    autherName={item.name}
+                    autherImage={item.autherImage}
                   />
                 ))}
               </div>
