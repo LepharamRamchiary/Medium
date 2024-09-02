@@ -3,48 +3,14 @@ import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import avatarImage from "../assets/ang.jpeg";
-import ContentCard from "./contentCard";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { cardData } from "./cardData";
 import { Link } from "react-router-dom";
 
-function Feed() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function UserProfile() {
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const titles = [
-    "React Hooks",
-    "JavaScript",
-    "CSS",
-    "Node.js",
-    "Angular",
-    "Next",
-    "Python",
-    "C++",
-    "Java",
-    "C#",
-    "CSS",
-    "HTML",
-    // Add more titles as needed
-  ];
-
-  const titlesToShow = 5; // Number of titles to show at once
-  const slideWidth = 100 / titlesToShow; // Percentage width for each slide
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 >= titles.length - titlesToShow + 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? titles.length - titlesToShow : prevIndex - 1
-    );
-  };
 
   const handleLoggout = () => {
     logout();
@@ -63,14 +29,13 @@ function Feed() {
       setIsAvatarHoverd(false);
     }, 3000);
   };
-
   return (
-    <div className="relative">
-      <nav className="fixed top-0 w-full z-50 shadow bg-gray-100 border-b border-gray-950">
+    <div>
+      <nav className="fixed top-0 w-full z-50 shadow bg-gray-50 border-b border-x-gray-300">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between">
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
-              <div className="sm:ml-6  flex sm:block md:flex md:gap-2">
+              <div className="sm:ml-6 flex sm:block md:flex md:gap-2">
                 <div className="flex space-x-4">
                   <Link
                     to="/feed"
@@ -134,65 +99,8 @@ function Feed() {
           </div>
         </div>
       </nav>
-      <div className="mt-20 md:px-6">
-        <div className="md:flex flex-wrap items-center">
-          <div className="flex justify-center items-center flex-1 md:p-6 border-0 md:border-r md:border-gray-950">
-            <div className="flex flex-col">
-              <div className="md:flex hidden justify-center items-center border-b border-gray-300 p-1">
-                <button
-                  onClick={handlePrev}
-                  className="text-gray-600 hover:text-gray-900 focus:outline-none"
-                >
-                  &lt;
-                </button>
-                <div className="overflow-hidden mx-4 flex flex-grow">
-                  <div
-                    className="flex transition-transform duration-500 ease-in-out"
-                    style={{
-                      transform: `translateX(-${currentIndex * slideWidth}%)`,
-                    }}
-                  >
-                    {titles.map((title, index) => (
-                      <div
-                        key={index}
-                        className="flex-none w-[calc(100%/5)] text-sm"
-                      >
-                        {title}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button
-                  onClick={handleNext}
-                  className="text-gray-600 hover:text-gray-900 focus:outline-none"
-                >
-                  &gt;
-                </button>
-              </div>
-              <div className="md:mt-6 mt-0">
-                {cardData.map((item) => (
-                  <ContentCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    description={item.description}
-                    imageSrc={item.imageSrc}
-                    autherName={item.autherName}
-                    autherImage={item.autherImage}
-                    publicationDate={item.publicationDate}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 p-6">
-            <h1>Lepharam Ramchiary</h1>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
 
-export default Feed;
+export default UserProfile;

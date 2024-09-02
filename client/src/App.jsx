@@ -8,6 +8,7 @@ import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
 import Write from "./components/write";
 import CardDetails from "./components/cardDetails";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/feed" element={<Feed />} />
           <Route path="/write" element={<Write />} />
           <Route path="/card-details/:id" element={<CardDetails />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -33,7 +35,8 @@ function HeaderSwitcher() {
   if (
     location.pathname === "/feed" ||
     location.pathname === "/write" ||
-    location.pathname.startsWith("/card-details/")
+    location.pathname.startsWith("/card-details/") ||
+    location.pathname === "/user-profile"
   ) {
     return null;
   }
@@ -44,6 +47,5 @@ function HeaderSwitcher() {
 
   return <Header />;
 }
-
 
 export default App;

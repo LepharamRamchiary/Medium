@@ -5,7 +5,6 @@ import { CiSearch } from "react-icons/ci";
 import avatarImage from "../assets/ang.jpeg";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import CurrentDate from "./CurrentDate";
 import { PiHandsClappingLight } from "react-icons/pi";
 import { FaComment } from "react-icons/fa";
 import { TbBookmarkPlus } from "react-icons/tb";
@@ -17,6 +16,7 @@ import { cardData } from "./cardData";
 import { calculateReadingTime } from "../utils/readingTime";
 import { formatReadingTime } from "../utils/formatReadingTime";
 import { formatDate } from "../utils/formatDate";
+import { Link } from "react-router-dom";
 
 const IconWithTooltip = ({ icon: Icon, label }) => {
   return (
@@ -41,10 +41,19 @@ function cardDetails() {
     return <div>Card not found</div>;
   }
 
-  const { title, description, imageSrc, autherName, autherImage,publicationDate } = card;
+  const {
+    title,
+    description,
+    imageSrc,
+    autherName,
+    autherImage,
+    publicationDate,
+  } = card;
   const readingTime = calculateReadingTime(description);
   const formattedReadingTime = formatReadingTime(readingTime);
-  const formattedDate = publicationDate ? formatDate(publicationDate) : 'Unknown date';
+  const formattedDate = publicationDate
+    ? formatDate(publicationDate)
+    : "Unknown date";
 
   const handleLoggout = () => {
     logout();
@@ -71,12 +80,12 @@ function cardDetails() {
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
               <div className="sm:ml-6 flex sm:block md:flex md:gap-2">
                 <div className="flex space-x-4">
-                  <a
-                    href="/feed"
+                  <Link
+                    to="/feed"
                     className="px-3 py-2 text-3xl font-bold text-black font-serif"
                   >
                     Medium
-                  </a>
+                  </Link>
                 </div>
                 <div className="flex justify-center items-center px-3">
                   <button className="px-4 h-10 py-1 rounded-l-full bg-white border border-r-0 border-gray-300 focus:outline-none focus:ring-0">
@@ -93,12 +102,12 @@ function cardDetails() {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
                 <div className="md:flex hidden md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
-                  <a
-                    href="/write"
+                  <Link
+                    to ="/write"
                     className="flex justify-center items-center gap-2"
                   >
                     <TfiWrite className="text-2xl" /> Write
-                  </a>
+                  </Link>
                   <GoBell className="text-2xl hidden md:block" />
                   <div
                     className="relative"
@@ -111,13 +120,19 @@ function cardDetails() {
                       alt="avatar image"
                     />
                     {isAvatarHoverd && (
-                      <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md w-20 flex text-center">
+                      <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md w-20 flex flex-col text-center">
                         <button
                           onClick={handleLoggout}
                           className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
                         >
                           Logout
                         </button>
+                        <Link
+                          to="/user-profile"
+                          className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
+                        >
+                          Profile
+                        </Link>
                       </div>
                     )}
                   </div>
@@ -166,36 +181,34 @@ function cardDetails() {
                       </span>
                     </span>
                   </span>
-                  <p>
-                    {formattedDate}
-                  </p>
+                  <p>{formattedDate}</p>
                 </div>
               </div>
             </div>
             <div className="my-9 md:py-3 md:px-4 py-2 px-2 border-t border-b flex justify-between">
               <div className="flex gap-3">
-                <p className="flex items-center gap-1 text-gray-500">
+                <span className="flex items-center gap-1 text-gray-500">
                   <IconWithTooltip icon={PiHandsClappingLight} label="Clab" />
                   20
-                </p>
-                <p className="flex items-center gap-1 text-gray-500">
+                </span>
+                <span className="flex items-center gap-1 text-gray-500">
                   <IconWithTooltip icon={FaComment} label="comment" />
                   20
-                </p>
+                </span>
               </div>
               <div className="flex gap-3 justify-center items-center">
-                <p className="flex items-center text-xl text-gray-500">
+                <span className="flex items-center text-xl text-gray-500">
                   <IconWithTooltip icon={TbBookmarkPlus} label="Save" />
-                </p>
-                <p className="flex items-center text-xl text-gray-500">
+                </span>
+                <span className="flex items-center text-xl text-gray-500">
                   <IconWithTooltip icon={IoPlayCircleOutline} label="Listen" />
-                </p>
-                <p className="flex items-center text-xl text-gray-500">
+                </span>
+                <span className="flex items-center text-xl text-gray-500">
                   <IconWithTooltip icon={IoShareOutline} label="Share" />
-                </p>
-                <p className="flex items-center text-xl text-gray-500">
+                </span>
+                <span className="flex items-center text-xl text-gray-500">
                   <IconWithTooltip icon={IoIosMore} label="More" />
-                </p>
+                </span>
               </div>
             </div>
             <div className="">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { GoBell } from "react-icons/go";
 import { BsThreeDots } from "react-icons/bs";
 import avatarImage from "../assets/ang.jpeg";
@@ -12,11 +12,34 @@ import { PiYoutubeLogoThin } from "react-icons/pi";
 import { ImEmbed } from "react-icons/im";
 import { PiBracketsCurlyLight } from "react-icons/pi";
 import { AiOutlinePartition } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Write() {
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLoggout = () => {
+    logout();
+    navigate("/");
+  };
+
+  let hoverTimeout;
+
+  const handleMouseEnter = () => {
+    clearTimeout(hoverTimeout);
+    setIsAvatarHoverd(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeout = setTimeout(() => {
+      setIsAvatarHoverd(false);
+    }, 3000);
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -30,12 +53,12 @@ function Write() {
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
               <div className="sm:ml-6 flex sm:block md:flex md:gap-2">
                 <div className="flex space-x-4">
-                  <a
-                    href="/feed"
+                  <Link
+                    to="/feed"
                     className="px-3 py-2 text-4xl font-bold text-black font-serif"
                   >
                     Medium
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -47,12 +70,32 @@ function Write() {
                   </button>
                   <BsThreeDots className="text-xl hidden md:block md:text-gray-400 md:hover:text-gray-950" />
                   <GoBell className="text-xl hidden md:block md:text-gray-400 md:hover:text-gray-950" />
-                  <div className="relative">
+                  <div
+                    className="relative"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <img
                       className="h-10 w-10 rounded-full p-1 hidden md:block"
                       src={avatarImage}
                       alt="avatar"
                     />
+                    {isAvatarHoverd && (
+                      <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md w-20 flex flex-col text-center">
+                        <button
+                          onClick={handleLoggout}
+                          className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
+                        >
+                          Logout
+                        </button>
+                        <Link
+                          to="/user-profile"
+                          className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
+                        >
+                          Profile
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
