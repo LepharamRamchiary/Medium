@@ -6,6 +6,8 @@ import avatarImage from "../assets/ang.jpeg";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ProfilePhoto from "../assets/photo.jpg";
+import { IoIosMore } from "react-icons/io";
 
 function UserProfile() {
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
@@ -30,7 +32,7 @@ function UserProfile() {
     }, 3000);
   };
   return (
-    <div>
+    <div className="relative">
       <nav className="fixed top-0 w-full z-50 shadow bg-gray-50 border-b border-x-gray-300">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between">
@@ -99,6 +101,29 @@ function UserProfile() {
           </div>
         </div>
       </nav>
+      <div className="mt-14 md:divide-x md:flex flex-wrap w-full h-screen">
+        <div className="w-3/5 md:px-20 pt-20">
+          <div className="flex flex-col gap-16 py-2 border-b border-gray-300">
+            <div className="flex justify-between items-center">
+              <h1 className="text-4xl font-semibold">Lepharam Ramchiary</h1>
+              <span className="cursor-pointer text-2xl text-gray-500 hover:text-gray-950"><IoIosMore /></span>
+            </div>
+            <div className="flex gap-3">
+              <span>Home</span>
+              <span>About</span>
+            </div>
+          </div>
+        </div>
+        <div className="w-1/5 md:px-10 pt-20 mx-2">
+          <div>
+            <div className="md:flex md:flex-col md:gap-1">
+              <img className="md:h-24 md:w-24 h-10 w-10 rounded-full" src={ProfilePhoto} alt="avatar image" />
+              <span className="md:text-xl">Lepharam Ramchiary</span>
+              <button className="md:flex md:justify-start text-teal-800">Edit profile</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

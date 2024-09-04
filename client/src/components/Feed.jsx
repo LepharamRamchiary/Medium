@@ -134,7 +134,7 @@ function Feed() {
           </div>
         </div>
       </nav>
-      <div className="mt-20 md:px-6">
+      <div className="mt-14 md:px-6">
         <div className="md:flex flex-wrap items-center">
           <div className="flex justify-center items-center flex-1 md:p-6 border-0 md:border-r md:border-gray-950">
             <div className="flex flex-col">

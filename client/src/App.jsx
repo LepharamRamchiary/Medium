@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "./components/Header";
+import OurStoryHeader from "./components/OurStoryHeader";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import OurStory from "./components/OurStory";
 import Feed from "./components/Feed";
-import OurStoryHeader from "./components/OurStoryHeader";
 import MemberShip from "./components/MemberShip";
 import Write from "./components/write";
 import CardDetails from "./components/cardDetails";
