@@ -8,11 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProfilePhoto from "../assets/photo.jpg";
 import { IoIosMore } from "react-icons/io";
+import { MdClose } from "react-icons/md";
 
 function UserProfile() {
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
+  const handlePopupClick = (e) => {
+    e.stopPropagation(); // Prevents closing the popup when clicking inside the popup
+  };
 
   const handleLoggout = () => {
     logout();
@@ -102,11 +112,15 @@ function UserProfile() {
         </div>
       </nav>
       <div className="mt-14 md:divide-x md:flex flex-wrap w-full h-screen">
-        <div className="w-3/5 md:px-20 pt-20">
-          <div className="flex flex-col gap-16 py-2 border-b border-gray-300">
+        <div className="md:w-3/5 md:px-20 pt-20">
+          <div className="flex flex-col px-2 md:px-0 gap-16 py-2 border-b border-gray-300">
             <div className="flex justify-between items-center">
-              <h1 className="text-4xl font-semibold">Lepharam Ramchiary</h1>
-              <span className="cursor-pointer text-2xl text-gray-500 hover:text-gray-950"><IoIosMore /></span>
+              <h1 className="md:text-4xl text-xl font-semibold">
+                Lepharam Ramchiary
+              </h1>
+              <span className="cursor-pointer text-xl md:text-2xl text-gray-500 hover:text-gray-950">
+                <IoIosMore />
+              </span>
             </div>
             <div className="flex gap-3">
               <span>Home</span>
@@ -114,12 +128,71 @@ function UserProfile() {
             </div>
           </div>
         </div>
-        <div className="w-1/5 md:px-10 pt-20 mx-2">
+        <div className="md:w-1/5 md:px-10 pt-20 mx-2">
           <div>
             <div className="md:flex md:flex-col md:gap-1">
-              <img className="md:h-24 md:w-24 h-10 w-10 rounded-full" src={ProfilePhoto} alt="avatar image" />
-              <span className="md:text-xl">Lepharam Ramchiary</span>
-              <button className="md:flex md:justify-start text-teal-800">Edit profile</button>
+              <img
+                className="md:h-24 md:w-24 h-10 w-10 rounded-full"
+                src={ProfilePhoto}
+                alt="avatar image"
+              />
+              <div className=" flex flex-col justify-start text-start">
+                <span className="md:text-xl">Lepharam Ramchiary</span>
+                <span
+                  onClick={togglePopup}
+                  className="cursor-pointer text-teal-800"
+                >
+                  Edit profile
+                </span>
+
+                {showPopup && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 w-screen">
+                    <div
+                      className="fixed inset-0 bg-white opacity-30"
+                      onClick={togglePopup}
+                    ></div>
+                    <div
+                      className="bg-white p-6 rounded shadow-lg relative max-w-2xl mx-auto w-full"
+                      onClick={handlePopupClick}
+                    >
+                      <button
+                        className="cursor-pointer absolute top-4 right-4 text-gray-500"
+                        onClick={togglePopup}
+                      >
+                        <MdClose />
+                      </button>
+                      <div className="w-full">
+                        <div className="flex items-center gap-4">
+                          <div className="flex flex-col gap-2">
+                            <label htmlFor="">Photo</label>
+                            <img
+                              className="h-20 w-20 rounded-full"
+                              src={ProfilePhoto}
+                              alt="profile-photo"
+                            />
+                          </div>
+                          <div className="flex gap-4">
+                            <button className="text-green-800 font-semibold">Update</button>
+                            <button className="text-red-500 font-semibold">Remove</button>
+                          </div>
+                        </div>
+                        <div className="mt-6 flex flex-col gap-2">
+                          <label htmlFor="">Name</label>
+                          <input type="text" className="bg-slate-100 w-full rounded-md focus:outline-none px-2 py-1"/>
+                        </div>
+                        <div className="flex flex-col gap-2 mt-6">
+                          <label htmlFor="">Sort Bio</label>
+                          <textarea className="bg-slate-100 h-20 w-full rounded-md focus:outline-none px-2 py-1" name="bio" id=""></textarea>
+                        </div>
+                        <div className="mt-10 flex gap-6 justify-center">
+                          <button className="border border-green-400 text-green-600 px-3 py-1 rounded-full">Cancel</button>
+                          <button className="bg-green-400 text-white px-3 py-1 rounded-full">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
