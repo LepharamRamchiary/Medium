@@ -3,6 +3,7 @@ import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import avatarImage from "../assets/ang.jpeg";
+import avatarImage2 from "../assets/avatar.png";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -15,9 +16,33 @@ function UserProfile() {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
+  const [profileImage, setProfileImage] = useState(ProfilePhoto);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
+  };
+
+  const handleUpdateClick = () => {
+    // Trigger the file input when "Update" button is clicked
+    document.getElementById("image-upload").click();
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedImage(null); // Clear the selected image
+  };
+
+  const handleSaveImage = () => {
+    setProfileImage(selectedImage || avatarImage2);
+    setShowPopup(false);
   };
 
   const handlePopupClick = (e) => {
@@ -133,8 +158,8 @@ function UserProfile() {
             <div className="md:flex md:flex-col md:gap-1">
               <img
                 className="md:h-24 md:w-24 h-10 w-10 rounded-full"
-                src={ProfilePhoto}
-                alt="avatar image"
+                src={profileImage}
+                alt="profile-photo"
               />
               <div className=" flex flex-col justify-start text-start">
                 <span className="md:text-xl">Lepharam Ramchiary</span>
@@ -154,6 +179,7 @@ function UserProfile() {
                     <div
                       className="bg-white p-6 rounded shadow-lg relative max-w-2xl mx-auto w-full"
                       onClick={handlePopupClick}
+                      // onClick={(e) => e.stopPropagation()}
                     >
                       <button
                         className="cursor-pointer absolute top-4 right-4 text-gray-500"
@@ -167,26 +193,60 @@ function UserProfile() {
                             <label htmlFor="">Photo</label>
                             <img
                               className="h-20 w-20 rounded-full"
-                              src={ProfilePhoto}
+                              src={selectedImage || avatarImage2}
                               alt="profile-photo"
+                            />
+                            <input
+                              type="file"
+                              id="image-upload"
+                              accept="image/*"
+                              onChange={handleImageChange}
+                              className="hidden" // Hide the file input
                             />
                           </div>
                           <div className="flex gap-4">
-                            <button className="text-green-800 font-semibold">Update</button>
-                            <button className="text-red-500 font-semibold">Remove</button>
+                            <button
+                              onClick={handleUpdateClick}
+                              className="text-green-800 font-semibold"
+                            >
+                              Update
+                            </button>
+                            <button
+                              onClick={handleRemoveImage}
+                              className="text-red-500 font-semibold"
+                            >
+                              Remove
+                            </button>
                           </div>
                         </div>
                         <div className="mt-6 flex flex-col gap-2">
                           <label htmlFor="">Name</label>
-                          <input type="text" className="bg-slate-100 w-full rounded-md focus:outline-none px-2 py-1"/>
+                          <input
+                            type="text"
+                            className="bg-slate-100 w-full rounded-md focus:outline-none px-2 py-1"
+                          />
                         </div>
                         <div className="flex flex-col gap-2 mt-6">
                           <label htmlFor="">Sort Bio</label>
-                          <textarea className="bg-slate-100 h-20 w-full rounded-md focus:outline-none px-2 py-1" name="bio" id=""></textarea>
+                          <textarea
+                            className="bg-slate-100 h-20 w-full rounded-md focus:outline-none px-2 py-1"
+                            name="bio"
+                            id=""
+                          ></textarea>
                         </div>
                         <div className="mt-10 flex gap-6 justify-center">
-                          <button className="border border-green-400 text-green-600 px-3 py-1 rounded-full">Cancel</button>
-                          <button className="bg-green-400 text-white px-3 py-1 rounded-full">Save</button>
+                          <button
+                            onClick={togglePopup}
+                            className="border border-green-400 text-green-600 px-3 py-1 rounded-full"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={handleSaveImage}
+                            className="bg-green-400 text-white px-3 py-1 rounded-full"
+                          >
+                            Save
+                          </button>
                         </div>
                       </div>
                     </div>
