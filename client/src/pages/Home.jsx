@@ -7,7 +7,7 @@ function Home() {
         <div className="flex flex-col justify-center w-full md:w-3/5 text-center md:text-left">
           <div className="mx-6 md:ml-16">
             <h1 className="text-5xl md:text-8xl font-serif font-medium">
-              Human
+              Human Lepha11 dfhdfhgfhfg
             </h1>
             <h1 className="text-5xl md:text-8xl font-serif font-medium">
               stories & ideas
