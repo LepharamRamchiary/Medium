@@ -1,5 +1,7 @@
 import { v2 as cloudinary } from "cloudinary"
 import fs from "fs"
+import dotenv from 'dotenv';
+dotenv.config();
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -8,26 +10,32 @@ cloudinary.config({
 });
 
 
-
 const uploadOnCloudinary = async (localFilePath) => {
     try {
-        if (!localFilePath) return null
-        // upload the file on cloudinary
-        const response = await cloudinary.uploader.upload(
-            localFilePath, {
-            resource_type: "auto"
+        if (!localFilePath) {
+            console.error("Invalid local file path for upload:", localFilePath);
+            return null;
         }
-        )
-        // file has been upload successfull
-        console.log("file is upload on cloudinary", response.url);
-        fs.unlinkSync(localFilePath)
         
-        return response
+        const response = await cloudinary.uploader.upload(localFilePath, {
+            resource_type: "auto"
+        });
+        
+        if (!response) {
+            throw new Error("Cloudinary upload response is undefined");
+        }
+        
+        console.log("File uploaded to Cloudinary successfully: ", response.url);
+        fs.unlinkSync(localFilePath);  // Remove local file after successful upload
+        return response;
+
     } catch (error) {
-        fs.unlinkSync(localFilePath) // remove the locally saved temporay file as the upload operation got failed
+        console.error("Cloudinary upload failed with error: ", error.stack);  // Log detailed error
+        fs.unlinkSync(localFilePath);  // Remove the local file if upload fails
+        return null;  // Return null if the upload fails
     }
-    // console.log("Response got: ",response);
-}
+};
+
 
 const deleteFromCloudinary = async (publicId) => {
     try {
