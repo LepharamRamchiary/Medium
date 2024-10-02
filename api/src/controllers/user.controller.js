@@ -7,6 +7,24 @@ import {
 } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+
+//generate access and referesh token
+const generateAccessTokenAndRefereshToken = async (userId) => {
+  try {
+      const user = await User.findById(userId)
+      const accessToken = user.generateAccessToken()
+      const refreshToken = user.generateRefreshToken()
+
+      user.refreshToken = refreshToken
+      await user.save({ validateBeforeSave: false })
+
+      return { accessToken, refreshToken }
+
+  } catch (error) {
+      throw new ApiError(500, "Something went wrong while generating referesh and access token")
+  }
+}
+
 const registerUser = asyncHandler(async (req, res) => {
   const { fullname, email, password, username } = req.body;
   // console.log("email", email);
@@ -30,17 +48,15 @@ const registerUser = asyncHandler(async (req, res) => {
   // check for image, check for avatar
   const avatarLocalPath = req.files?.avatar[0]?.path;
 
-
   if (!avatarLocalPath) {
-    
     throw new ApiError(400, "Avatar file is required");
   }
-  console.log("Attempting to upload avatar: ", avatarLocalPath); 
+  console.log("Attempting to upload avatar: ", avatarLocalPath);
 
   // upload them to cloudinary, avatar
   const avatar = await uploadOnCloudinary(avatarLocalPath);
   console.log("Cloudinary upload response: ", avatar);
-  
+
   if (!avatar) {
     console.error("Avatar upload failed: ", avatarLocalPath);
     throw new ApiError(400, "Avatar file is required1");
@@ -72,4 +88,63 @@ const registerUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdUser, "User registered successfully"));
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+  const { username, email, password } = req.body;
+  // console.log(username, email, password);
+  
+  if (!username && !email) {
+    throw new ApiError(400, "username and email is required!");
+  }
+
+  const user = await User.findOne({
+    $or: [{ username }, { email }],
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User not found or exists");
+  }
+
+  if (!user.password) {
+    throw new ApiError(500, "Password is missing for this user");
+  }
+
+  // password check-> true or false
+  const isPasswordValid = await user.isPasswordCorrect(password);
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid user credentials");
+  }
+
+  // access and referesh token
+  const { accessToken, refreshToken } =
+    await generateAccessTokenAndRefereshToken(user._id);
+
+  // send cookie
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  //response return
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        {
+          user: loggedInUser,
+          refreshToken,
+          accessToken,
+        },
+        "User logged In Successfully"
+      )
+    );
+
+
+});
+
+export { registerUser, loginUser };
