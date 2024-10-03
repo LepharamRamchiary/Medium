@@ -180,11 +180,11 @@ const logoutUser = asyncHandler(async (req, res) => {
 // Forgot Password Handler
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  console.log(email);
+  // console.log(email);
 
   // 1. Find the user by email
   const user = await User.findOne({ email });
-  console.log(user);
+  // console.log(user);
 
   if (!user) {
     throw new ApiError(404, "User not found with this email");
@@ -192,7 +192,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   // 2. Generate a reset token and save it in the database
   const resetToken = user.createPasswordResetToken();
-  console.log(resetToken);
+  // console.log(resetToken);
 
   await user.save({ validateBeforeSave: false });
 
@@ -201,7 +201,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     "host"
   )}/api/v1/users/resetPassword/${resetToken}`;
 
-  console.log(resetUrl);
+  // console.log(resetUrl);
 
   // 4. Email message
   const message = `You requested a password reset. Please use the following link to reset your password: \n\n ${resetUrl} \n\n This link will expire in 10 minutes.`;
@@ -225,8 +225,8 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
     // 6. Send response with reset token data for testing (remove in production)
     return res.status(200).json(new ApiResponse(200, {
-      resetToken,     // Include the token in the response
-      resetUrl        // Include the reset URL in the response
+      resetToken,     
+      resetUrl        
     }, "Email sent to reset password"));
 
   } catch (error) {
