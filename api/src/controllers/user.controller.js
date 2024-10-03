@@ -6,6 +6,10 @@ import {
   deleteFromCloudinary,
 } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
+import dotenv from "dotenv"
+dotenv.config()
 
 //generate access and referesh token
 const generateAccessTokenAndRefereshToken = async (userId) => {
@@ -75,7 +79,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // remove passwoerd and refresh token field from response
   const createdUser = await User.findById(user._id).select(
     // write what are the fields you need to remove || write what fields are not need
-    "-password -refreshToken"
+    "-password -refreshToken -resetPasswordToken -resetPasswordExpires"
   );
 
   // check for user creation
@@ -173,4 +177,65 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out Successfully"));
 });
 
-export { registerUser, loginUser, logoutUser };
+// Forgot Password Handler
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  
+  // 1. Find the user by email
+  const user = await User.findOne({ email });
+  console.log(user);
+  
+  if (!user) {
+    throw new ApiError(404, "User not found with this email");
+  }
+
+  // 2. Generate a reset token and save it in the database
+  const resetToken = user.createPasswordResetToken();
+  console.log(resetToken);
+  
+  await user.save({ validateBeforeSave: false });
+
+  // 3. Create reset URL
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/users/resetPassword/${resetToken}`;
+
+  console.log(resetUrl);
+  
+  // 4. Email message
+  const message = `You requested a password reset. Please use the following link to reset your password: \n\n ${resetUrl} \n\n This link will expire in 10 minutes.`;
+
+  console.log(process.env.EMAIL_USERNAME, process.env.EMAIL_PASSWORD);
+
+  try {
+    // 5. Configure nodemailer and send the reset link via email
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    await transporter.sendMail({
+      from: "no-reply@yourapp.com",
+      to: user.email,
+      subject: "Password Reset Request",
+      text: message,
+    });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, {}, "Email sent to reset password"));
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+    throw new ApiError(500, "Email could not be sent");
+  }
+});
+
+
+
+export { registerUser, loginUser, logoutUser, forgotPassword, resetPassword };
