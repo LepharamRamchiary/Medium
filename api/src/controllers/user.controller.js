@@ -7,23 +7,24 @@ import {
 } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-
 //generate access and referesh token
 const generateAccessTokenAndRefereshToken = async (userId) => {
   try {
-      const user = await User.findById(userId)
-      const accessToken = user.generateAccessToken()
-      const refreshToken = user.generateRefreshToken()
+    const user = await User.findById(userId);
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
 
-      user.refreshToken = refreshToken
-      await user.save({ validateBeforeSave: false })
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
 
-      return { accessToken, refreshToken }
-
+    return { accessToken, refreshToken };
   } catch (error) {
-      throw new ApiError(500, "Something went wrong while generating referesh and access token")
+    throw new ApiError(
+      500,
+      "Something went wrong while generating referesh and access token"
+    );
   }
-}
+};
 
 const registerUser = asyncHandler(async (req, res) => {
   const { fullname, email, password, username } = req.body;
@@ -91,7 +92,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
   // console.log(username, email, password);
-  
+
   if (!username && !email) {
     throw new ApiError(400, "username and email is required!");
   }
@@ -143,8 +144,33 @@ const loginUser = asyncHandler(async (req, res) => {
         "User logged In Successfully"
       )
     );
-
-
 });
 
-export { registerUser, loginUser };
+const logoutUser = asyncHandler(async (req, res) => {
+  // removing refreshToken from DB
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        refreshToken: 1,
+      },
+    },
+    {
+      new: true,
+    }
+  );
+
+  // clearing a cookies
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, {}, "User logged Out Successfully"));
+});
+
+export { registerUser, loginUser, logoutUser };
