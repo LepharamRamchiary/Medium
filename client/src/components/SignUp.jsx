@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function SignInModal({ isOpen, onClose, title, redirectPath }) {
@@ -71,9 +71,12 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
               type="submit"
               className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
             >
-              Sign In
+              Login
             </button>
           </form>
+          <p className="mt-4 text-blue-400">
+            Don't have an account ? <Link className="text-green-600 underline" to="/signup">Sign Up</Link>
+          </p>
         </div>
       </div>
     </div>
