@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import crypto from "crypto";
 
 const userSchema = new Schema(
   {
@@ -37,11 +36,11 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
-    resetPasswordToken: {
-      type: String,
+    otp: {
+      type: String, // Store OTP
     },
-    resetPasswordExpires: {
-      type: Date,
+    otpExpires: {
+      type: Date, // Store OTP expiration time
     },
   },
   { timestamps: true }
@@ -98,22 +97,11 @@ userSchema.methods.generateRefreshToken = function () {
   );
 };
 
-// Generate password reset token
-userSchema.methods.createPasswordResetToken = function () {
-  const resetToken = crypto.randomBytes(32).toString("hex");
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
-  this.resetPasswordExpires = Date.now() + 10 * 60 * 1000; 
-  return resetToken;
-};
-
-// Reset password
-userSchema.methods.resetPassword = function (newPassword) {
-  this.password = newPassword; // Will be hashed automatically before saving
-  this.resetPasswordToken = undefined;
-  this.resetPasswordExpires = undefined;
+userSchema.methods.generateOtp = function () {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
+  this.otp = otp;
+  this.otpExpires = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
+  return otp;
 };
 
 export const User = mongoose.model("User", userSchema);

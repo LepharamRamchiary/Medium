@@ -7,7 +7,6 @@ import {
 } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
-import crypto from "crypto";
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -177,37 +176,26 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out Successfully"));
 });
 
-// Forgot Password Handler
-const forgotPassword = asyncHandler(async (req, res) => {
-  const { email } = req.body;
-  // console.log(email);
 
-  // 1. Find the user by email
+const sendOtpForPasswordReset = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+
+  // Find user by email
   const user = await User.findOne({ email });
-  // console.log(user);
 
   if (!user) {
     throw new ApiError(404, "User not found with this email");
   }
 
-  // 2. Generate a reset token and save it in the database
-  const resetToken = user.createPasswordResetToken();
-  // console.log(resetToken);
-
+  // Generate OTP
+  const otp = user.generateOtp();
   await user.save({ validateBeforeSave: false });
 
-  // 3. Create reset URL
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/users/resetPassword/${resetToken}`;
-
-  // console.log(resetUrl);
-
-  // 4. Email message
-  const message = `You requested a password reset. Please use the following link to reset your password: \n\n ${resetUrl} \n\n This link will expire in 10 minutes.`;
+  // Email message
+  const message = `Your OTP for password reset is: ${otp}. It will expire in 10 minutes.`;
 
   try {
-    // 5. Configure nodemailer and send the reset link via email
+    // Configure nodemailer and send the OTP via email
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -219,51 +207,26 @@ const forgotPassword = asyncHandler(async (req, res) => {
     await transporter.sendMail({
       from: "no-reply@yourapp.com",
       to: user.email,
-      subject: "Password Reset Request",
+      subject: "Password Reset OTP",
       text: message,
     });
 
-    // 6. Send response with reset token data for testing (remove in production)
-    return res.status(200).json(new ApiResponse(200, {
-      resetToken,     
-      resetUrl        
-    }, "Email sent to reset password"));
+    // Store email in req.user for later use
+    req.user = { email: user.email }; // Make sure req.user is correctly set
+
+    // Send response
+    return res.status(200).json(new ApiResponse(200, {}, "OTP sent to reset password"));
 
   } catch (error) {
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    user.otp = undefined;
+    user.otpExpires = undefined;
     await user.save({ validateBeforeSave: false });
     throw new ApiError(500, "Email could not be sent");
   }
 });
 
-// Reset Password Handler
-const resetPassword = asyncHandler(async (req, res) => {
-  // 1. Hash the provided token and find the user
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(req.params.token)
-    .digest("hex");
 
-  const user = await User.findOne({
-    resetPasswordToken: hashedToken,
-    resetPasswordExpires: { $gt: Date.now() },
-  });
 
-  if (!user) {
-    throw new ApiError(400, "Token is invalid or has expired");
-  }
 
-  // 2. Update the user's password
-  user.password = req.body.password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
-  await user.save();
 
-  // 3. Send a success response
-  return res
-    .status(200)
-    .json(new ApiResponse(200, {}, "Password reset successfully"));
-});
-
-export { registerUser, loginUser, logoutUser, forgotPassword, resetPassword };
+export { registerUser, loginUser, logoutUser, sendOtpForPasswordReset, verifyOtp, resetPassword };

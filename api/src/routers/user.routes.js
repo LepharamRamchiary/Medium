@@ -1,29 +1,34 @@
 import { Router } from "express";
-import {  registerUser ,loginUser, logoutUser, forgotPassword, resetPassword} from "../controllers/user.controller.js";
-import { upload } from "../middlewares/multer.middleware.js"
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  sendOtpForPasswordReset,
+  verifyOtp,
+  resetPassword,
+} from "../controllers/user.controller.js";
+import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
-
-const router = Router()
+const router = Router();
 
 router.route("/register").post(
-    upload.fields([
-        {
-            name: "avatar",
-            maxCount: 1
-        }
-    ]),
-    registerUser
-)
+  upload.fields([
+    {
+      name: "avatar",
+      maxCount: 1,
+    },
+  ]),
+  registerUser
+);
 
-router.route("/login").post(loginUser)
-// Forgot password route
-router.post("/forgotPassword", forgotPassword);
+router.route("/login").post(loginUser);
+router.post("/send-otp", sendOtpForPasswordReset);
+router.post("/verify-otp", verifyOtp);
+router.post("/resetPassword", resetPassword);
 
-// Reset password route
-router.patch("/resetPassword/:token", resetPassword);
 
 // secured routes
-router.route("/logout").post(verifyJWT, logoutUser)
+router.route("/logout").post(verifyJWT, logoutUser);
 
-export default router
+export default router;
