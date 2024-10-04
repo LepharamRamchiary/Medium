@@ -225,6 +225,34 @@ const sendOtpForPasswordReset = asyncHandler(async (req, res, next) => {
   }
 });
 
+const verifyOtp = asyncHandler(async (req, res) => {
+  const { otp, email } = req.body; // Get email from the request body
+
+  // Check if email is available
+  if (!email) {
+    throw new ApiError(400, "Email is required to verify OTP");
+  }
+
+  // Find the user by email and check the OTP
+  const user = await User.findOne({
+    email,
+    otp,
+    otpExpires: { $gt: Date.now() }, // Check if OTP is not expired
+  });
+
+  if (!user) {
+    throw new ApiError(400, "Invalid or expired OTP");
+  }
+
+  // Clear OTP fields
+  user.otp = undefined; 
+  user.otpExpires = undefined; 
+  await user.save();
+
+  // Send success response
+  return res.status(200).json(new ApiResponse(200, {}, "OTP verified successfully"));
+});
+
 
 
 
