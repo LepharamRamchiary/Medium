@@ -7,8 +7,8 @@ import {
 } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
 //generate access and referesh token
 const generateAccessTokenAndRefereshToken = async (userId) => {
@@ -176,7 +176,6 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out Successfully"));
 });
 
-
 const sendOtpForPasswordReset = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
 
@@ -215,8 +214,9 @@ const sendOtpForPasswordReset = asyncHandler(async (req, res, next) => {
     req.user = { email: user.email }; // Make sure req.user is correctly set
 
     // Send response
-    return res.status(200).json(new ApiResponse(200, {}, "OTP sent to reset password"));
-
+    return res
+      .status(200)
+      .json(new ApiResponse(200, {}, "OTP sent to reset password"));
   } catch (error) {
     user.otp = undefined;
     user.otpExpires = undefined;
@@ -245,12 +245,14 @@ const verifyOtp = asyncHandler(async (req, res) => {
   }
 
   // Clear OTP fields
-  user.otp = undefined; 
-  user.otpExpires = undefined; 
+  user.otp = undefined;
+  user.otpExpires = undefined;
   await user.save();
 
   // Send success response
-  return res.status(200).json(new ApiResponse(200, {}, "OTP verified successfully"));
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "OTP verified successfully"));
 });
 
 const resetPassword = asyncHandler(async (req, res) => {
@@ -278,9 +280,16 @@ const resetPassword = asyncHandler(async (req, res) => {
   await user.save();
 
   // Send success response
-  return res.status(200).json(new ApiResponse(200, {}, "Password reset successfully"));
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Password reset successfully"));
 });
 
-
-
-export { registerUser, loginUser, logoutUser, sendOtpForPasswordReset, verifyOtp, resetPassword };
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  sendOtpForPasswordReset,
+  verifyOtp,
+  resetPassword,
+};
