@@ -253,7 +253,33 @@ const verifyOtp = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, {}, "OTP verified successfully"));
 });
 
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, newPassword } = req.body; // Destructure email and newPassword from request body
 
+  // Check if email is available
+  if (!email) {
+    throw new ApiError(400, "Email is required to reset password");
+  }
+
+  // Find the user by email
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  // Validate new password (optional)
+  if (newPassword.length < 6) {
+    throw new ApiError(400, "Password must be at least 6 characters long");
+  }
+
+  // Update the user's password
+  user.password = newPassword; // You should hash this password before saving, assuming you have pre-save middleware for hashing
+  await user.save();
+
+  // Send success response
+  return res.status(200).json(new ApiResponse(200, {}, "Password reset successfully"));
+});
 
 
 
