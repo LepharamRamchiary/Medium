@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
-function OtpVerification({ isOpen, onClose }) {
+function OtpVerification({ isOpen, onClose, onVerifySuccess }) {
   const [email, setEmail] = useState(""); // State for email
   const [otp, setOtp] = useState(""); // State for OTP
 
@@ -10,7 +10,7 @@ function OtpVerification({ isOpen, onClose }) {
     // Simulate OTP verification logic
     if (otp === "123456") { // Replace with your actual OTP logic
       alert("OTP verified! You can now reset your password.");
-      // Here you can redirect the user to reset their password or open another modal
+      onVerifySuccess(); // Notify parent component to open SetNewPassword modal
       onClose(); // Close the OTP verification modal
     } else {
       alert("Invalid OTP. Please try again.");
