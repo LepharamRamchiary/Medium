@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
-function ForgotPassword({ isOpen, onClose }) {
+function ForgotPassword({ isOpen, onClose, onRecoveryEmailSent }) {
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
@@ -9,7 +9,8 @@ function ForgotPassword({ isOpen, onClose }) {
     // Handle password recovery logic (e.g., send recovery email)
     console.log("Recovery email sent to:", email);
     alert("Password recovery email sent! Please check your inbox.");
-    onClose(); // Close the modal after submission
+    onRecoveryEmailSent(); // Notify parent component to open OTP verification
+    // onClose(); // Optionally keep this if you want to close the modal immediately
   };
 
   if (!isOpen) return null;

@@ -3,6 +3,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import ForgotPasswordModal from "./ForgotPasswod"; // Import the new component
+import OtpVerification from "./OtpVerification"; // Import OTP verification component
 
 function SignInModal({ isOpen, onClose, title, redirectPath }) {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -15,6 +16,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false); // State for forgot password modal
+  const [isOtpVerificationOpen, setIsOtpVerificationOpen] = useState(false); // State for OTP verification modal
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +37,15 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
         alert("Invalid credentials");
       }
     }
+  };
+
+  const handleForgotPassword = () => {
+    setIsForgotPasswordOpen(true); // Open the forgot password modal
+  };
+
+  const handleRecoveryEmailSent = () => {
+    setIsForgotPasswordOpen(false); // Close the forgot password modal
+    setIsOtpVerificationOpen(true); // Open the OTP verification modal
   };
 
   if (isAuthenticated) {
@@ -112,7 +123,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
             {!isRegistering && (
               <p className="mt-2 text-blue-400 text-sm">
                 <button
-                  onClick={() => setIsForgotPasswordOpen(true)} // Open forgot password modal
+                  onClick={handleForgotPassword} // Open forgot password modal
                   className="text-green-600 underline"
                 >
                   Forgot Password?
@@ -148,9 +159,15 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
       <ForgotPasswordModal
         isOpen={isForgotPasswordOpen}
         onClose={() => setIsForgotPasswordOpen(false)} // Close forgot password modal
+        onRecoveryEmailSent={handleRecoveryEmailSent} // Prop to handle email sent
+      />
+      <OtpVerification
+        isOpen={isOtpVerificationOpen}
+        onClose={() => setIsOtpVerificationOpen(false)} // Close OTP verification modal
       />
     </>
   );
 }
 
 export default SignInModal;
+
