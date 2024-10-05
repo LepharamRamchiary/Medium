@@ -9,6 +9,7 @@ import MemberShip from "./components/MemberShip";
 import Write from "./components/write";
 import CardDetails from "./components/cardDetails";
 import UserProfile from "./components/UserProfile";
+import ForgotPasswod from "./components/ForgotPasswod";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/write" element={<Write />} />
           <Route path="/card-details/:id" element={<CardDetails />} />
           <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/forgot-password" element={<ForgotPasswod />} />
         </Routes>
       </BrowserRouter>
     </div>
