@@ -33,6 +33,11 @@ const registerUser = asyncHandler(async (req, res) => {
   const { fullname, email, password, username } = req.body;
   // console.log("email", email);
 
+  console.log("Request body:", req.body);
+
+  console.log({ fullname, email, password, username });
+
+
   // validation - not empty
   if (
     [fullname, email, password, username].some((field) => field?.trim() === "")
@@ -54,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     fullname,
     password,
     email,
-    username: username.toLowerCase(),
+    username: username,
   });
 
   // remove passwoerd and refresh token field from response
