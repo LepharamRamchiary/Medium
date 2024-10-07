@@ -264,7 +264,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
                 </div>
               )}
               <div className="mb-4">
-                <label className="block text-left mb-2">Email:</label>
+                <label className="block text-left mb-2">Username</label>
                 <input
                   type="email"
                   required
@@ -274,7 +274,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-left mb-2">Password:</label>
+                <label className="block text-left mb-2">Email:</label>
                 <input
                   type="password"
                   required
@@ -285,7 +285,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
               </div>
               {isRegistering && (
                 <div className="mb-4">
-                  <label className="block text-left mb-2">Confirm Password:</label>
+                  <label className="block text-left mb-2">Password:</label>
                   <input
                     type="password"
                     required
