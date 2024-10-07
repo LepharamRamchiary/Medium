@@ -6,16 +6,29 @@ function SetNewPassword({ isOpen, onClose }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmNewPassword) {
       alert("Passwords do not match.");
       return;
     }
-    // Here you can handle the password reset logic (e.g., API call)
-    console.log("New password set for:", email);
-    alert("Your password has been reset successfully!");
-    onClose(); // Close the modal
+
+    const response = await fetch("http://localhost:8000/api/v1/users/resetPassword", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email,  newPassword}), 
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert("Password reset successful. You can now log in.");
+      onClose();
+    } else {
+      console.log("Error resetting password:", data);
+      alert(data.message || "Password reset failed. Please try again.");
+    }
   };
 
   if (!isOpen) return null;
