@@ -36,7 +36,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fullname, email, password, username }), // Include username
+        body: JSON.stringify({ fullname, email, password, username }), 
       });
 
       const data = await response.json();
@@ -58,7 +58,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/v1/users/login", {
+      const response = await fetch("http://localhost:8000/api/v1/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
