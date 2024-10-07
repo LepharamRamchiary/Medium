@@ -63,7 +63,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, username }), // Include username
+        body: JSON.stringify({ email, password, username }), 
       });
 
       const data = await response.json();

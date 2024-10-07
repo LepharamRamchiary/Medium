@@ -4,13 +4,34 @@ import { MdOutlineClose } from "react-icons/md";
 function ForgotPassword({ isOpen, onClose, onRecoveryEmailSent }) {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle password recovery logic (e.g., send recovery email)
-    console.log("Recovery email sent to:", email);
-    alert("Password recovery email sent! Please check your inbox.");
-    onRecoveryEmailSent(); // Notify parent component to open OTP verification
-    // onClose(); // Optionally keep this if you want to close the modal immediately
+
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/users/send-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }), 
+      });
+
+      const data = await response.json();
+      if(response.ok){
+       onRecoveryEmailSent();
+       alert("Recovery email sent to: " + email); 
+      }else{
+        console.log("Error sending recovery email:", data);
+        alert("Error sending recovery email. Please try again.");
+      }
+      
+    } catch (error) {
+      console.log("Error sending recovery email:", error);
+      alert("Error sending recovery email. Please try again.");
+    }
+    // console.log("Recovery email sent to:", email);
+    // alert("Password recovery email sent! Please check your inbox.");
+    // onRecoveryEmailSent();
   };
 
   if (!isOpen) return null;
