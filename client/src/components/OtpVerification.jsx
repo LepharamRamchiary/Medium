@@ -5,16 +5,40 @@ function OtpVerification({ isOpen, onClose, onVerifySuccess }) {
   const [email, setEmail] = useState(""); // State for email
   const [otp, setOtp] = useState(""); // State for OTP
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate OTP verification logic
-    if (otp === "123456") { // Replace with your actual OTP logic
-      alert("OTP verified! You can now reset your password.");
-      onVerifySuccess(); // Notify parent component to open SetNewPassword modal
-      onClose(); // Close the OTP verification modal
-    } else {
-      alert("Invalid OTP. Please try again.");
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/users/verify-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, otp }),
+        }
+      );
+
+      const data = response.json();
+      if (response.ok) {
+        onVerifySuccess();
+        onClose();
+        alert("OTP verified! You can now reset your password.");
+      } else {
+        console.log("Error verifying OTP:", data);
+        alert("Invalid OTP. Please try again.");
+      }
+    } catch (error) {
+      console.log("Error verifying OTP:", error);
     }
+    // // Simulate OTP verification logic
+    // if (otp === "123456") { // Replace with your actual OTP logic
+    //   alert("OTP verified! You can now reset your password.");
+    //   onVerifySuccess(); // Notify parent component to open SetNewPassword modal
+    //   onClose(); // Close the OTP verification modal
+    // } else {
+    //   alert("Invalid OTP. Please try again.");
+    // }
   };
 
   if (!isOpen) return null;
