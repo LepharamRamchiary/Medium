@@ -31,14 +31,6 @@ function OtpVerification({ isOpen, onClose, onVerifySuccess }) {
     } catch (error) {
       console.log("Error verifying OTP:", error);
     }
-    // // Simulate OTP verification logic
-    // if (otp === "123456") { // Replace with your actual OTP logic
-    //   alert("OTP verified! You can now reset your password.");
-    //   onVerifySuccess(); // Notify parent component to open SetNewPassword modal
-    //   onClose(); // Close the OTP verification modal
-    // } else {
-    //   alert("Invalid OTP. Please try again.");
-    // }
   };
 
   if (!isOpen) return null;

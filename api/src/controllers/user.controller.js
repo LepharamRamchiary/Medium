@@ -33,9 +33,9 @@ const registerUser = asyncHandler(async (req, res) => {
   const { fullname, email, password, username } = req.body;
   // console.log("email", email);
 
-  console.log("Request body:", req.body);
+  // console.log("Request body:", req.body);
 
-  console.log({ fullname, email, password, username });
+  // console.log({ fullname, email, password, username });
 
 
   // validation - not empty

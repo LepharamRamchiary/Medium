@@ -28,11 +28,10 @@ function Feed() {
     "C#",
     "CSS",
     "HTML",
-    // Add more titles as needed
   ];
 
-  const titlesToShow = 5; // Number of titles to show at once
-  const slideWidth = 100 / titlesToShow; // Percentage width for each slide
+  const titlesToShow = 5; 
+  const slideWidth = 100 / titlesToShow;
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
