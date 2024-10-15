@@ -7,11 +7,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { CiImageOn } from "react-icons/ci";
-import { FaUnsplash } from "react-icons/fa6";
 import { PiYoutubeLogoThin } from "react-icons/pi";
-import { ImEmbed } from "react-icons/im";
-import { PiBracketsCurlyLight } from "react-icons/pi";
-import { AiOutlinePartition } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -22,6 +18,11 @@ function Write() {
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState("");
+  const [video, setVideo] = useState(null);
+  const [videoName, setVideoName] = useState("");
 
   const handleLoggout = () => {
     logout();
@@ -43,6 +44,27 @@ function Write() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImageName(file.name);
+      setVideo(null); 
+      setVideoName("");
+    }
+  };
+
+  const handleVideoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setVideo(file);
+      setVideoName(file.name);
+      setImage(null); 
+      setImageName("");
+    }
   };
 
   return (
@@ -126,14 +148,32 @@ function Write() {
                 onChange={(e) => setTitle(e.target.value)}
               />
               {isOpen && (
-                <div className="absolute ml-12 p-4 bg-white ">
+                <div className="absolute ml-12 p-4 bg-white flex gap-3">
                   <div className="flex gap-2">
-                    <CiImageOn className="h-9 text-sm w-9 text-green-400 border border-green-400 rounded-full p-2" />
-                    <FaUnsplash className="h-9 w-9 text-sm text-green-400 border border-green-400 rounded-full p-2" />
-                    <PiYoutubeLogoThin className="h-9 w-9 text-sm text-green-400 border border-green-400 rounded-full p-2" />
-                    <ImEmbed className="h-9 w-9 text-sm text-green-400 border border-green-400 rounded-full p-2" />
-                    <PiBracketsCurlyLight className="h-9 w-9 text-sm text-green-400 border border-green-400 rounded-full p-2" />
-                    <AiOutlinePartition className="h-9 w-9 text-sm text-green-400 border border-green-400 rounded-full p-2" />
+                    <label>
+                      <CiImageOn className="h-9 text-sm w-9 text-green-400 border border-green-400 rounded-full p-2" />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        disabled={!!video} 
+                        className="hidden"
+                      />
+                    </label>
+                    <label>
+                      <PiYoutubeLogoThin className="h-9 w-9 text-sm text-green-400 border border-green-400 rounded-full p-2" />
+                      <input
+                        type="file"
+                        accept="video/*"
+                        onChange={handleVideoUpload}
+                        disabled={!!image} 
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                  <div className="mt-2 text-gray-600">
+                    {imageName && <p>Image: {imageName}</p>}
+                    {videoName && <p>Video: {videoName}</p>}
                   </div>
                 </div>
               )}

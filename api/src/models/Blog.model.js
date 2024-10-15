@@ -13,6 +13,9 @@ const blogSchema = new Schema({
     image: {
         type: String, 
     },
+    video: {
+        type: String,
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
