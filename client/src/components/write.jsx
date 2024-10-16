@@ -46,13 +46,12 @@ function Write() {
     setIsOpen(!isOpen);
   };
 
-
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
       setImageName(file.name);
-      setVideo(null); 
+      setVideo(null);
       setVideoName("");
     }
   };
@@ -62,8 +61,58 @@ function Write() {
     if (file) {
       setVideo(file);
       setVideoName(file.name);
-      setImage(null); 
+      setImage(null);
       setImageName("");
+    }
+  };
+
+  const handlePublish = async () => {
+    if (!title || !value) {
+      alert("Please enter title and content");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", value);
+
+    if (image) {
+      formData.append("image", image);
+    } else if (video) {
+      formData.append("video", video);
+    }
+
+    const token = localStorage.getItem('accessToken');
+    if(!token) {
+      alert("You are not logged in. Please log in to publish.");
+      navigate('/login')
+      return;
+    }
+  
+
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/blogs/publish",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Authorization": `Bearer ${token}`
+          },
+          credentials: 'include',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to publish post");
+      }
+
+      const data = await response.json();
+      alert("Blog published successfully!");
+      navigate("/feed");
+    } catch (error) {
+      console.log("Error publishing post:", error);
+      alert("Error publishing post. Please try again.");
     }
   };
 
@@ -87,7 +136,8 @@ function Write() {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
                 <div className="md:flex md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer md:justify-center md:items-center">
-                  <button className="bg-green-300 p-1 rounded-full px-2 text-sm text-white">
+                  <button className="bg-green-300 p-1 rounded-full px-2 text-sm text-white"
+                  onClick={handlePublish}>
                     Publish
                   </button>
                   <BsThreeDots className="text-xl hidden md:block md:text-gray-400 md:hover:text-gray-950" />
@@ -156,7 +206,7 @@ function Write() {
                         type="file"
                         accept="image/*"
                         onChange={handleImageUpload}
-                        disabled={!!video} 
+                        disabled={!!video}
                         className="hidden"
                       />
                     </label>
@@ -166,7 +216,7 @@ function Write() {
                         type="file"
                         accept="video/*"
                         onChange={handleVideoUpload}
-                        disabled={!!image} 
+                        disabled={!!image}
                         className="hidden"
                       />
                     </label>

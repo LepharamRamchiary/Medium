@@ -10,7 +10,9 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const publishBlog = asyncHandler(async (req, res) => {
   const { title, content } = req.body;
-  const { userId } = req.user._id;
+  const  userId  = req.user._id;
+  console.log(userId);
+  
 
   // validation
   if (!title || !content) {
@@ -51,7 +53,8 @@ const publishBlog = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Image or video is required");
   }
 
-  // Create a new blog post with the data provided
+  try {
+    // Create a new blog post with the data provided
   const newBlog = new Blog({
     title,
     content,
@@ -66,6 +69,10 @@ const publishBlog = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, newBlog, "Blog published successfully"));
+  } catch (error) {
+    console.log("Error publish blog", error);
+    throw new ApiError(500, "Internal server error")
+  }
 });
 
 export { publishBlog };
