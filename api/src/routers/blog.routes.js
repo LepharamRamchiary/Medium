@@ -1,0 +1,17 @@
+import { Router } from "express";
+import { publishBlog } from "../controllers/blog.controller.js";
+import { upload } from "../middlewares/multer.middleware.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+
+const router = Router();
+
+router.route("/publish").post(
+  verifyJWT,
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "video", maxCount: 1 },
+  ]),
+  publishBlog
+);
+
+export default router;
