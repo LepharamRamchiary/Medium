@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { publishBlog } from "../controllers/blog.controller.js";
+import { publishBlog , getAllBlogs} from "../controllers/blog.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -13,5 +13,6 @@ router.route("/publish").post(
   ]),
   publishBlog
 );
+router.get("/blogs", getAllBlogs);
 
 export default router;
