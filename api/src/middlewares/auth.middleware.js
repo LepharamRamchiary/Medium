@@ -7,7 +7,7 @@ import { User } from "../models/user.model.js";
 export const verifyJWT = asyncHandler(async (req, res, next) => {
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer", "")
-        console.log("Token received:", token);
+        // console.log("Token received:", token);
 
         // if there is no token 
         if (!token) {
@@ -16,7 +16,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
 
         // if there is a token then 
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        console.log("Decoded token:", decodedToken);
+        // console.log("Decoded token:", decodedToken);
 
         const user = await User.findById(decodedToken?._id).select("-password -refreshToken")
 

@@ -83,12 +83,13 @@ function Write() {
     }
 
     const token = localStorage.getItem('accessToken');
-    if(!token) {
-      alert("You are not logged in. Please log in to publish.");
-      navigate('/login')
+    console.log("token was :", token);
+
+    if (!token) {
+      alert("No access token found. Please log in.");
       return;
     }
-  
+    
 
     try {
       const response = await fetch(

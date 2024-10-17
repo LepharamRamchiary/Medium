@@ -31,13 +31,16 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fullname, email, password, username }), 
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/v1/users/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fullname, email, password, username }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -53,24 +56,33 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
     }
   };
 
-  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("http://localhost:8000/api/v1/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, username }), 
+        body: JSON.stringify({ email, password }),
+        credentials: 'include', // Important for receiving cookies
       });
-
+  
       const data = await response.json();
+  
       if (response.ok) {
-        setIsAuthenticated(true);
-        alert("Login successful!");
-        navigate(redirectPath || "/feed");
+        const { accessToken } = data.data; // Note the nested structure
+        if (accessToken) {
+          localStorage.setItem("accessToken", accessToken);
+          console.log("Token stored in localStorage:", accessToken);
+          setIsAuthenticated(true);
+          alert("Login successful!");
+          navigate(redirectPath || "/feed");
+        } else {
+          console.log("Login response:", data);
+          alert("Login successful, but no access token received. Please check server response.");
+        }
       } else {
         console.log("Login failed: ", data);
         alert(data.message || "Login failed. Please try again.");
@@ -80,6 +92,7 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
       alert(`Login failed. Please try again. Error: ${error.message}`);
     }
   };
+  
 
   const handleForgotPassword = () => {
     setIsForgotPasswordOpen(true);
@@ -115,7 +128,10 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
             <h2 className="text-2xl font-semibold mb-6">
               {isRegistering ? "Sign Up" : title}
             </h2>
-            <form onSubmit={isRegistering ? handleRegister : handleLogin} className="w-full">
+            <form
+              onSubmit={isRegistering ? handleRegister : handleLogin}
+              className="w-full"
+            >
               {isRegistering && (
                 <div className="mb-4">
                   <label className="block text-left mb-2">Full Name:</label>
@@ -162,7 +178,9 @@ function SignInModal({ isOpen, onClose, title, redirectPath }) {
               </div>
               {isRegistering && (
                 <div className="mb-4">
-                  <label className="block text-left mb-2">Confirm Password:</label>
+                  <label className="block text-left mb-2">
+                    Confirm Password:
+                  </label>
                   <input
                     type="password"
                     required
