@@ -13,6 +13,6 @@ router.route("/publish").post(
   ]),
   publishBlog
 );
-router.get("/blogs", getAllBlogs);
+router.get("/get-all-blogs", getAllBlogs);
 
 export default router;

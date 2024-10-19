@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TfiWrite } from "react-icons/tfi";
 import { GoBell } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
@@ -9,11 +9,59 @@ import { useNavigate } from "react-router-dom";
 import { cardData } from "./cardData";
 import { Link } from "react-router-dom";
 
+const API_URL = "http://localhost:8000/api/v1/blogs/get-all-blogs";
+
 function Feed() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAvatarHoverd, setIsAvatarHoverd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [blogs, setBlogs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [sort, setSort] = useState("-createdAt");
+
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const fetchBlogs = async (page = 1) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `${API_URL}?page=${page}&limit=${limit}&sort=${sort}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setBlogs(data.data.blogs);
+        setCurrentPage(data.data.currentPage);
+        setTotalPages(data.data.totalPages);
+      } else {
+        console.error("Error fetching blogs:", data.message);
+      }
+    } catch (error) {
+      console.error("Error in fetchBlogs:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      fetchBlogs(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      fetchBlogs(currentPage - 1);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs(currentPage);
+  }, [currentPage, sort]);
 
   const titles = [
     "React Hooks",
@@ -30,7 +78,7 @@ function Feed() {
     "HTML",
   ];
 
-  const titlesToShow = 5; 
+  const titlesToShow = 5;
   const slideWidth = 100 / titlesToShow;
 
   const handleNext = () => {
@@ -169,18 +217,42 @@ function Feed() {
                 </button>
               </div>
               <div className="md:mt-6 mt-0">
-                {cardData.map((item) => (
-                  <ContentCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    description={item.description}
-                    imageSrc={item.imageSrc}
-                    autherName={item.autherName}
-                    autherImage={item.autherImage}
-                    publicationDate={item.publicationDate}
-                  />
-                ))}
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  blogs.map((blog) => (
+                    <ContentCard
+                      key={blog._id}
+                      id={blog._id}
+                      title={blog.title}
+                      description={blog.content}
+                      imageSrc={blog.image}
+                      autherName={blog.owner.fullname}
+                      autherImage={avatarImage} // Replace with the actual owner image
+                      publicationDate={blog.createdAt}
+                    />
+                  ))
+                )}
+              </div>
+
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-gray-300 rounded"
+                >
+                  Previous
+                </button>
+                <p>
+                  Page {currentPage} of {totalPages}
+                </p>
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 bg-gray-300 rounded"
+                >
+                  Next
+                </button>
               </div>
             </div>
           </div>

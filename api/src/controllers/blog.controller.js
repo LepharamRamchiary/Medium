@@ -78,7 +78,7 @@ const publishBlog = asyncHandler(async (req, res) => {
 
 const getAllBlogs = asyncHandler(async (req, res) => {
   try {
-    const { page = 1, limit = 10, sort = '-createdAt' } = req.query;
+    const { page = 1, limit = 4, sort = '-createdAt' } = req.query;
 
     const options = {
       page: parseInt(page, 10),
