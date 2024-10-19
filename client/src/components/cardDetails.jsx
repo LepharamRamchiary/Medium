@@ -60,7 +60,12 @@ function CardDetails() {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-center gap-2">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
@@ -81,7 +86,9 @@ function CardDetails() {
 
   const readingTime = calculateReadingTime(description);
   const formattedReadingTime = formatReadingTime(readingTime);
-  const formattedDate = publicationDate ? formatDate(publicationDate) : "Unknown date";
+  const formattedDate = publicationDate
+    ? formatDate(publicationDate)
+    : "Unknown date";
 
   const handleLogout = () => {
     logout();
@@ -109,7 +116,10 @@ function CardDetails() {
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
               <div className="sm:ml-6 flex sm:block md:flex md:gap-2">
                 <div className="flex space-x-4">
-                  <Link to="/feed" className="px-3 py-2 text-3xl font-bold text-black font-serif">
+                  <Link
+                    to="/feed"
+                    className="px-3 py-2 text-3xl font-bold text-black font-serif"
+                  >
                     Medium
                   </Link>
                 </div>
@@ -128,7 +138,10 @@ function CardDetails() {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="relative flex mr-2 md:mr-10 lg:mr-12 md:items-center">
                 <div className="md:flex hidden md:gap-3 lg:gap-5 p-2 md:p-5 lg:p-18 text-sm cursor-pointer items-center">
-                  <Link to="/write" className="flex justify-center items-center gap-2">
+                  <Link
+                    to="/write"
+                    className="flex justify-center items-center gap-2"
+                  >
                     <TfiWrite className="text-2xl" /> Write
                   </Link>
                   <GoBell className="text-2xl hidden md:block" />
@@ -137,13 +150,23 @@ function CardDetails() {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <img className="h-10 w-10 rounded-full p-1 hidden md:block" src={avatarImage} alt="avatar image" />
+                    <img
+                      className="h-10 w-10 rounded-full p-1 hidden md:block"
+                      src={avatarImage}
+                      alt="avatar image"
+                    />
                     {isAvatarHovered && (
                       <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md w-20 flex flex-col text-center">
-                        <button onClick={handleLogout} className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md">
+                        <button
+                          onClick={handleLogout}
+                          className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
+                        >
                           Logout
                         </button>
-                        <Link to="/user-profile" className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md">
+                        <Link
+                          to="/user-profile"
+                          className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-blue-400 font-semibold hover:rounded-md"
+                        >
                           Profile
                         </Link>
                       </div>
@@ -160,13 +183,19 @@ function CardDetails() {
           <div className="">
             <h1 className="md:text-4xl font-semibold font-serif">{title}</h1>
             <div className="mt-2 flex flex-col md:flex-row md:items-center gap-2 md:gap-5">
-              <img className="md:h-10 md:w-10 h-8 w-8 rounded-full" src={authorImage} alt="avatar" />
+              <img
+                className="md:h-10 md:w-10 h-8 w-8 rounded-full"
+                src={authorImage}
+                alt="avatar"
+              />
               <div>
                 <div className="flex md:gap-2 gap-1 items-center text-xs md:text-sm">
                   <p>{authorName}</p>
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="w-0.5 h-0.5 bg-black rounded-full">.</span>
+                      <span className="w-0.5 h-0.5 bg-black rounded-full">
+                        .
+                      </span>
                     </span>
                   </span>
                   <button className="text-red-300">Follow</button>
@@ -175,13 +204,17 @@ function CardDetails() {
                   <p>Published in Coding at Dawn</p>
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="w-0.5 h-0.5 bg-black rounded-full">.</span>
+                      <span className="w-0.5 h-0.5 bg-black rounded-full">
+                        .
+                      </span>
                     </span>
                   </span>
                   <p>{formattedReadingTime}</p>{" "}
                   <span className="relative">
                     <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="w-0.5 h-0.5 bg-black rounded-full">.</span>
+                      <span className="w-0.5 h-0.5 bg-black rounded-full">
+                        .
+                      </span>
                     </span>
                   </span>
                   <p>{formattedDate}</p>
@@ -215,7 +248,11 @@ function CardDetails() {
               </div>
             </div>
             <div className="">
-              <img className="md:h-[400px] h-[200px] w-full" src={image} alt="blog post image" />
+              <img
+                className="md:h-[400px] h-[200px] w-full"
+                src={image}
+                alt="blog post image"
+              />
             </div>
             <div className="my-9">
               <p className="md:text-xl text-sm">{description}</p>
