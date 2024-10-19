@@ -17,7 +17,7 @@ router.route("/publish").post(
   ]),
   publishBlog
 );
-router.get("/get-all-blogs", verifyJWT, getAllBlogs);
-router.get("/get-all-blogs/:blogId", verifyJWT, getSingleBlog);
+router.get("/get-all-blogs", getAllBlogs);
+router.get("/get-all-blogs/:blogId", getSingleBlog);
 
 export default router;
